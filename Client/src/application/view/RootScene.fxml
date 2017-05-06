@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.effect.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.BorderPane?>
+
+<BorderPane styleClass="background" stylesheets="@DarkScene.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.view.Controller">
+   <top>
+      <GridPane styleClass="menu-bar" stylesheets="@DarkScene.css" BorderPane.alignment="CENTER">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+          <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="0.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <MenuBar>
+              <menus>
+                <Menu text="_File">
+                  <items>
+                        <MenuItem text="_New" />
+                        <MenuItem text="_Open" />
+                        <MenuItem text="_Save" />
+                    <MenuItem text="_Close" />
+                        <MenuItem text="_Exit" />
+                  </items>
+                </Menu>
+                <Menu text="_Run">
+                  <items>
+                    <MenuItem onAction="#excute" text="_Execute" />
+                  </items>
+                </Menu>
+                <Menu text="_Version">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="About" />
+                  </items>
+                </Menu>
+                  <Menu text="_Team">
+                    <items>
+                        <MenuItem text="_Commit" />
+                      <MenuItem text="_Push" />
+                        <MenuItem text="Commit _And Push" />
+                    </items>
+                  </Menu>
+              </menus>
+            </MenuBar>
+            <Button mnemonicParsing="false" opacity="0.7" prefHeight="33.0" prefWidth="30.0" GridPane.columnIndex="1">
+               <effect>
+                  <ImageInput>
+                     <source>
+                        <Image url="file:/L:/javaHomework/Client/resources/images/login.png" />
+                     </source>
+                  </ImageInput>
+               </effect>
+            </Button>
+         </children>
+      </GridPane>
+   </top>
+   <bottom>
+      <GridPane BorderPane.alignment="CENTER">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints />
+            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <TextArea fx:id="inputText" styleClass="code-text" stylesheets="@../../../bin/application/view/TextArea.css">
+               <effect>
+                  <DropShadow>
+                     <input>
+                        <ColorAdjust brightness="-0.71" hue="0.71" saturation="-1.0" />
+                     </input>
+                  </DropShadow>
+               </effect>
+            </TextArea>
+            <TextArea fx:id="outputText" styleClass="code-text" stylesheets="@../../../bin/application/view/TextArea.css" GridPane.columnIndex="1">
+               <effect>
+                  <DropShadow>
+                     <input>
+                        <ColorAdjust brightness="-0.71" hue="0.71" saturation="-1.0" />
+                     </input>
+                  </DropShadow>
+               </effect>
+            </TextArea>
+         </children>
+      </GridPane>
+   </bottom>
+   <center>
+      <BorderPane styleClass="menu-bar" stylesheets="@DarkScene.css" BorderPane.alignment="CENTER">
+         <bottom>
+            <GridPane BorderPane.alignment="CENTER">
+               <children>
+                  <TextField fx:id="gitText">
+                     <effect>
+                        <Lighting>
+                           <bumpInput>
+                              <Shadow />
+                           </bumpInput>
+                           <light>
+                              <Light.Distant />
+                           </light>
+                        </Lighting>
+                     </effect>
+                  </TextField>
+                  <HBox spacing="20.0" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+                     <children>
+                        <Button mnemonicParsing="false" styleClass="commit-button" stylesheets="@../../../bin/application/view/TextArea.css" text="Commit" />
+                        <Button mnemonicParsing="false" styleClass="commit-button" stylesheets="@../../../bin/application/view/TextArea.css" text="Commit And Push" GridPane.columnIndex="1" />
+                     </children>
+                     <padding>
+                        <Insets top="3.0" />
+                     </padding>
+                  </HBox>
+               </children>
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                  <ColumnConstraints halignment="RIGHT" hgrow="NEVER" minWidth="10.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+            </GridPane>
+         </bottom>
+         <center>
+            <TextArea fx:id="codeText" opacity="0.5" styleClass="code-text" stylesheets="@../../../bin/application/view/TextArea.css" BorderPane.alignment="CENTER">
+               <effect>
+                  <ColorAdjust brightness="-0.61" hue="0.71" saturation="-1.0">
+                     <input>
+                        <DropShadow />
+                     </input>
+                  </ColorAdjust>
+               </effect>
+               <font>
+                  <Font name="Microsoft YaHei UI Light" size="15.0" />
+               </font>
+            </TextArea>
+         </center>
+         <top>
+            <ToolBar styleClass="menu-bar" stylesheets="@DarkScene.css" BorderPane.alignment="CENTER">
+               <items>
+                  <Button mnemonicParsing="false" prefWidth="25.0" text="Button">
+                     <effect>
+                        <ImageInput>
+                           <source>
+                              <Image url="file:/L:/javaHomework/Client/resources/images/back.png" />
+                           </source>
+                        </ImageInput>
+                     </effect>
+                  </Button>
+                  <Button mnemonicParsing="false" prefWidth="25.0" text="Button">
+                     <effect>
+                        <ImageInput>
+                           <source>
+                              <Image url="file:/L:/javaHomework/Client/resources/images/move.png" />
+                           </source>
+                        </ImageInput>
+                     </effect>
+                  </Button>
+               </items>
+            </ToolBar>
+         </top>
+      </BorderPane>
+   </center>
+</BorderPane>

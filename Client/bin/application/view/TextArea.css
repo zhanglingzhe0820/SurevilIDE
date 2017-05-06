@@ -1,0 +1,17 @@
+.code-text{
+	-fx-background: #CC99FF;
+	-fx-font-size:25px;
+	-fx-text-fill:black
+}
+
+.commit-button{
+    -fx-text-fill: #006464;
+
+    -fx-background-color: #9999CC;
+
+    -fx-border-radius: 20;
+
+    -fx-background-radius: 20;
+
+    -fx-padding: 5;
+}
