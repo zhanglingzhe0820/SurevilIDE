@@ -1,13 +1,17 @@
 package application.view;
 
+import application.Main;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
 
 public class Controller {
-
+	
 	@FXML
 	private TextArea codeText;
 	@FXML
@@ -16,10 +20,59 @@ public class Controller {
 	private TextArea inputText;
 	@FXML
 	private TextArea outputText;
+	@FXML
+	private Button loginButton;
+	@FXML
+	private Button backButton;
+	@FXML
+	private Button moveButton;
+	
+	//鼠标进入各种图标使其变亮
+	@FXML
+	private void loginButtonEntered(MouseEvent event){
+		loginButton.setOpacity(1);
+	}
+	
+	@FXML
+	private void loginButtonExited(MouseEvent event){
+		loginButton.setOpacity(0.5);
+	}
+	
+	@FXML
+	private void backButtonEntered(MouseEvent event){
+		backButton.setOpacity(1);
+	}
+	
+	@FXML
+	private void backButtonExited(MouseEvent event){
+		backButton.setOpacity(0.5);
+	}
+	
+	@FXML
+	private void moveButtonEntered(MouseEvent event){
+		moveButton.setOpacity(1);
+	}
+	
+	@FXML
+	private void moveButtonExited(MouseEvent event){
+		moveButton.setOpacity(0.5);
+	}
+	//美化界面结束
 	
 	@FXML
 	private void excute(ActionEvent event){
 		Client request=new Client(codeText.getText(),inputText.getText(),Function.Execute);
 		outputText.setText(request.execute());
 	}
+	
+	@FXML
+	private void exit(ActionEvent event){
+		System.exit(0);
+	}
+	
+	@FXML
+	private void focusOnCommit(ActionEvent event){
+		gitText.requestFocus();
+	}
+
 }

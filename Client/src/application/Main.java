@@ -2,6 +2,7 @@ package application;
 	
 import java.io.IOException;
 
+import application.view.Controller;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
@@ -16,7 +17,7 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		this.primaryStage=primaryStage;
-		this.primaryStage.setTitle("Surevil");
+		primaryStage.setTitle("Surevil");
 		
 		initRootLayout();
 		
@@ -32,7 +33,6 @@ public class Main extends Application {
 			e.printStackTrace();
 		}
 		
-		BorderPane root = new BorderPane();
 		Scene scene = new Scene(rootLayout,600,400);
 		primaryStage.setScene(scene);
 		primaryStage.show();
@@ -41,5 +41,10 @@ public class Main extends Application {
 	
 	public static void main(String[] args) {
 		launch(args);
+	}
+
+	public Stage getStage() {
+		// TODO Auto-generated method stub
+		return primaryStage;
 	}
 }
