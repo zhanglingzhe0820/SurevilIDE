@@ -1,5 +1,9 @@
+
 import java.io.IOException;
 import java.util.Scanner;
+
+import Exceptions.NotEqualLoopException;
+import Exceptions.WrongInputException;
 
 public class BrainFuckRunner {
 	

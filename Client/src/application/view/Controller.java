@@ -1,8 +1,12 @@
 package application.view;
 
+import java.io.IOException;
+
 import application.Main;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -61,8 +65,8 @@ public class Controller {
 	
 	@FXML
 	private void excute(ActionEvent event){
-		Client request=new Client(codeText.getText(),inputText.getText(),Function.Execute);
-		outputText.setText(request.execute());
+		Client request=new Client(Function.Execute);
+		outputText.setText(request.execute(codeText.getText(),inputText.getText()));
 	}
 	
 	@FXML
@@ -73,6 +77,23 @@ public class Controller {
 	@FXML
 	private void focusOnCommit(ActionEvent event){
 		gitText.requestFocus();
+	}
+	
+	//µ¯³öµÇÂ¼½çÃæ
+	@FXML
+	private void login(ActionEvent event){
+		FXMLLoader loader=new FXMLLoader();
+		loader.setLocation(Main.class.getResource("view/LoginScene.fxml"));
+		try {
+			BorderPane loginLayout=(BorderPane) loader.load();
+			Scene scene=new Scene(loginLayout,300,180);
+			Stage newStage=new Stage();
+			newStage.setScene(scene);
+			newStage.show();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }

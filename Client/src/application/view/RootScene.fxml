@@ -50,7 +50,7 @@
                   </Menu>
               </menus>
             </MenuBar>
-            <Button fx:id="loginButton" mnemonicParsing="false" onMouseEntered="#loginButtonEntered" onMouseExited="#loginButtonExited" opacity="0.5" prefHeight="33.0" prefWidth="30.0" GridPane.columnIndex="1">
+            <Button fx:id="loginButton" mnemonicParsing="false" onAction="#login" onMouseEntered="#loginButtonEntered" onMouseExited="#loginButtonExited" opacity="0.5" prefHeight="33.0" prefWidth="30.0" GridPane.columnIndex="1">
                <effect>
                   <ImageInput>
                      <source>

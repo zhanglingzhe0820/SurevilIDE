@@ -63,7 +63,7 @@ public class Server {
 			case "Execute":{
 				function=Function.Execute;
 				count++;
-				(new ClientThread(count,incoming,in)).start();
+				(new ExecuteClientThread(count,incoming,in)).start();
 				break;
 			}
 			case "Version":{
@@ -76,9 +76,23 @@ public class Server {
 			}
 			case "Push":{
 				function=Function.Push;
+				break;
 			}
 			case "CommitAndPush":{
 				function=Function.CommitAndPush;
+				break;
+			}
+			case "Login":{
+				function=Function.Login;
+				count++;
+				(new LoginClientThread(count,incoming,in)).start();
+				break;
+			}
+			case "SignUp":{
+				function=Function.SignUp;
+				count++;
+				(new SignUpClientThread(count,incoming,in)).start();
+				break;
 			}
 		}
 	}

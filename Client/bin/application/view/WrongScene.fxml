@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.BorderPane?>
+
+
+<BorderPane styleClass="gridPane" stylesheets="@TextArea.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8">
+   <center>
+      <Label id="wrongLabel" stylesheets="@TextArea.css" text="用户名或密码错误" textFill="RED" BorderPane.alignment="CENTER">
+         <font>
+            <Font name="Segoe UI Light Italic" size="24.0" />
+         </font>
+      </Label>
+   </center>
+</BorderPane>

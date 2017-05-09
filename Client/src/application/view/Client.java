@@ -15,11 +15,9 @@ public class Client {
 	private BufferedReader in;
 	private Function function;
 	
-	public Client(String code,String messageOutput,Function function){
-		//送出代码和输入
-		this.code=code;
-		this.messageOutput=messageOutput;
+	public Client(Function function){
 		this.function=function;
+		
 		try {
 			clientSocket=new Socket("127.0.0.1",10086);
 			System.out.println("服务器已连接");
@@ -34,7 +32,7 @@ public class Client {
 		}
 	}
 	
-	public String execute(){
+	public String execute(String code,String messageOutput){
 		//去掉输入代码中的换行符
 		String[] tempStr=code.split("\n");
 		code=tempStr[0];
@@ -61,7 +59,6 @@ public class Client {
 			while(((line=in.readLine())!=null)&&(line.length()!=0)){
 				messageInput=messageInput+line;
 			}
-			out.flush();
 			in.close();
 			clientSocket.close();
 		} catch (IOException e) {
@@ -70,5 +67,41 @@ public class Client {
 		}
 		
 		return messageInput;//TRY
+	}
+	
+	public String login(String username,String password){
+		out.println("Login");
+		out.println(username);
+		out.println(password);
+		out.flush();
+		
+		String result="";
+		//收到结果
+		try {
+				result=in.readLine();	
+			} catch (IOException e) {
+					// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+				
+			return result;//TRY
+	}
+
+	public String signUp(String username, String password) {
+		out.println("SignUp");
+		out.println(username);
+		out.println(password);
+		out.flush();
+		
+		String result="";
+		//收到结果
+		try {
+				result=in.readLine();	
+			} catch (IOException e) {
+					// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+				
+			return result;//TRY
 	}
 }

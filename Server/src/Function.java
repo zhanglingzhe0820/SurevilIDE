@@ -10,4 +10,6 @@ public enum Function {
 	Commit,
 	Push,
 	CommitAndPush,
+	Login,
+	SignUp
 }
