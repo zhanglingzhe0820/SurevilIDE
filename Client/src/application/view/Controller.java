@@ -1,21 +1,27 @@
 package application.view;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 import application.Main;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
-public class Controller {
+public class Controller{
 	
+	@FXML
+	private LoginController loginController;
 	@FXML
 	private TextArea codeText;
 	@FXML
@@ -30,6 +36,8 @@ public class Controller {
 	private Button backButton;
 	@FXML
 	private Button moveButton;
+	@FXML
+	private Label loginStatus;	 
 	
 	//鼠标进入各种图标使其变亮
 	@FXML
@@ -90,10 +98,19 @@ public class Controller {
 			Stage newStage=new Stage();
 			newStage.setScene(scene);
 			newStage.show();
+			
+			//实现Controller和loginContoller之间的通信
+			loginController=loader.getController();
+			loginController.init(this);
+
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	public void setLoginStatus(String username){
+		loginStatus.setText(username);
 	}
 
 }

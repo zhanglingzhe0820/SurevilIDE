@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.paint.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.image.*?>
@@ -13,8 +14,8 @@
    <top>
       <GridPane styleClass="menu-bar" stylesheets="@DarkScene.css" BorderPane.alignment="CENTER">
         <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-          <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="0.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints halignment="RIGHT" hgrow="NEVER" minWidth="0.0" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
@@ -50,56 +51,33 @@
                   </Menu>
               </menus>
             </MenuBar>
-            <Button fx:id="loginButton" mnemonicParsing="false" onAction="#login" onMouseEntered="#loginButtonEntered" onMouseExited="#loginButtonExited" opacity="0.5" prefHeight="33.0" prefWidth="30.0" GridPane.columnIndex="1">
-               <effect>
-                  <ImageInput>
-                     <source>
-                        <Image url="file:/L:/javaHomework/Client/resources/images/login.png" />
-                     </source>
-                  </ImageInput>
-               </effect>
-            </Button>
+            <HBox spacing="20.0" GridPane.columnIndex="1">
+               <children>
+                  <Label fx:id="loginStatus" alignment="CENTER" style="-fx-text-fill: #9933CC; -fx-alignment: CENTER; -fx-border-radius: 15;" text="未登录" textFill="#660099" wrapText="true">
+                     <font>
+                        <Font name="System Bold Italic" size="18.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="loginButton" mnemonicParsing="false" onAction="#login" onMouseEntered="#loginButtonEntered" onMouseExited="#loginButtonExited" opacity="0.5" prefHeight="33.0" prefWidth="30.0">
+                     <effect>
+                        <ImageInput>
+                           <source>
+                              <Image url="file:/L:/javaHomework/Client/resources/images/login.png" />
+                           </source>
+                        </ImageInput>
+                     </effect>
+                  </Button>
+               </children>
+            </HBox>
          </children>
       </GridPane>
    </top>
-   <bottom>
-      <GridPane BorderPane.alignment="CENTER">
-        <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints />
-            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-        </rowConstraints>
-         <children>
-            <TextArea fx:id="inputText" styleClass="code-text" stylesheets="@../../../bin/application/view/TextArea.css">
-               <effect>
-                  <DropShadow>
-                     <input>
-                        <ColorAdjust brightness="-0.71" hue="0.71" saturation="-1.0" />
-                     </input>
-                  </DropShadow>
-               </effect>
-            </TextArea>
-            <TextArea fx:id="outputText" styleClass="code-text" stylesheets="@../../../bin/application/view/TextArea.css" GridPane.columnIndex="1">
-               <effect>
-                  <DropShadow>
-                     <input>
-                        <ColorAdjust brightness="-0.71" hue="0.71" saturation="-1.0" />
-                     </input>
-                  </DropShadow>
-               </effect>
-            </TextArea>
-         </children>
-      </GridPane>
-   </bottom>
    <center>
       <BorderPane styleClass="menu-bar" stylesheets="@DarkScene.css" BorderPane.alignment="CENTER">
          <bottom>
             <GridPane BorderPane.alignment="CENTER">
                <children>
-                  <TextField fx:id="gitText">
+                  <TextField fx:id="gitText" stylesheets="@TextArea.css">
                      <effect>
                         <Lighting>
                            <bumpInput>
@@ -131,17 +109,13 @@
             </GridPane>
          </bottom>
          <center>
-            <TextArea fx:id="codeText" opacity="0.5" styleClass="code-text" stylesheets="@../../../bin/application/view/TextArea.css" BorderPane.alignment="CENTER">
-               <effect>
-                  <ColorAdjust brightness="-0.61" hue="0.71" saturation="-1.0">
-                     <input>
-                        <DropShadow />
-                     </input>
-                  </ColorAdjust>
-               </effect>
+            <TextArea fx:id="codeText" style="-fx-background-color: #666666;" styleClass="text" stylesheets="@TextArea.css" BorderPane.alignment="CENTER">
                <font>
-                  <Font name="Microsoft YaHei UI Light" size="15.0" />
+                  <Font name="Microsoft YaHei UI Light" size="24.0" />
                </font>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
             </TextArea>
          </center>
          <top>
@@ -170,4 +144,32 @@
          </top>
       </BorderPane>
    </center>
+   <bottom>
+      <BorderPane styleClass="menu-bar" stylesheets="@DarkScene.css" BorderPane.alignment="CENTER">
+         <center>
+            <GridPane BorderPane.alignment="CENTER">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints />
+                  <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <TextArea fx:id="inputText" styleClass="text" stylesheets="@TextArea.css">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                  </TextArea>
+                  <TextArea fx:id="outputText" styleClass="text" stylesheets="@TextArea.css" GridPane.columnIndex="1">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </TextArea>
+               </children>
+            </GridPane>
+         </center>
+      </BorderPane>
+   </bottom>
 </BorderPane>

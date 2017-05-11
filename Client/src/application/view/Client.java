@@ -1,5 +1,6 @@
 package application.view;
 import java.io.BufferedReader;
+
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
@@ -8,7 +9,6 @@ import java.net.UnknownHostException;
 
 public class Client {
 	private Socket clientSocket;
-	private String code="";
 	private String messageInput="";
 	private String messageOutput="";
 	private PrintWriter out;
@@ -83,7 +83,6 @@ public class Client {
 					// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-				
 			return result;//TRY
 	}
 

@@ -6,10 +6,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.BorderPane?>
 
-
-<BorderPane styleClass="code-text" stylesheets="@TextArea.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8">
+<BorderPane styleClass="code-text" stylesheets="@TextArea.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <center>
-      <Label styleClass="successLabel" stylesheets="@TextArea.css" text="注册成功" textFill="#33ff00" BorderPane.alignment="CENTER">
+      <Label stylesheets="@TextArea.css" text="注册成功" textFill="#39ff02" BorderPane.alignment="CENTER">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
