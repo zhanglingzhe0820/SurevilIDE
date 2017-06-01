@@ -6,10 +6,7 @@ import java.net.*;
 
 public class Server {
 	private ServerSocket serverSocket;
-	private Socket incoming;
 	private int count=0;
-	private BufferedReader in;
-	private Function function;
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -31,9 +28,9 @@ public class Server {
 	public void run(){
 		while(true){
 			try {
-				incoming=serverSocket.accept();
-				in=new BufferedReader(new InputStreamReader(incoming.getInputStream()));
-				chooseFunction(in.readLine());
+				Socket incoming=serverSocket.accept();
+				BufferedReader in=new BufferedReader(new InputStreamReader(incoming.getInputStream()));
+				chooseFunction(incoming,in.readLine(),in);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -42,56 +39,57 @@ public class Server {
 	}
 	
 	//根据传输的第一条字符串判断请求的功
-	public void chooseFunction(String info){
+	public void chooseFunction(Socket incoming,String info,BufferedReader in){
 		switch(info){
 			case "New":{
-				function=Function.New;
 				break;
 			}
 			case "Save":{
-				function=Function.Save;
+				count++;
+				(new SaveClientThread(count,incoming,in)).start();
 				break;
 			}
 			case "Open":{
-				function=Function.Open;
 				break;
 			}
 			case "Exit":{
-				function=Function.Exit;
 				break;
 			}
 			case "Execute":{
-				function=Function.Execute;
 				count++;
 				(new ExecuteClientThread(count,incoming,in)).start();
 				break;
 			}
 			case "Version":{
-				function=Function.Version;
 				break;
 			}
 			case "Commit":{
-				function=Function.Commit;
 				break;
 			}
 			case "Push":{
-				function=Function.Push;
 				break;
 			}
 			case "CommitAndPush":{
-				function=Function.CommitAndPush;
 				break;
 			}
 			case "Login":{
-				function=Function.Login;
 				count++;
 				(new LoginClientThread(count,incoming,in)).start();
 				break;
 			}
 			case "SignUp":{
-				function=Function.SignUp;
 				count++;
 				(new SignUpClientThread(count,incoming,in)).start();
+				break;
+			}
+			case "GetVersions":{
+				count++;
+				(new GetVersionsClientThread(count,incoming,in)).start();
+				break;
+			}
+			case "GetFile":{
+				count++;
+				(new GetFileClientThread(count,incoming,in)).start();
 				break;
 			}
 		}

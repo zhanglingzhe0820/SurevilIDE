@@ -14,37 +14,14 @@ public class ExecuteClientThread extends Thread{
 	private Socket incoming;
 	private BufferedReader in;
 	private PrintWriter out;
-	private Language language;
-	private BrainFuckRunner BFRunner;
-	private OokRunner OOKRunner;
-	
-	private enum Language{
-		BF,
-		OOK
-	}
-	
+	private Runner codeRunner;
+
 	public ExecuteClientThread(int numberOfThread,Socket incoming,BufferedReader in){
 		this.incoming=incoming;
 		this.numberOfThread=numberOfThread;
 		this.in=in;
 	}
 	
-	//等做完文件保存格式时需要修改
-	public void chooseLanguage(String fileForm) throws WrongFileFormException{
-		switch(fileForm){
-			case "bf":{
-				language=Language.BF;
-				break;
-			}
-			case "ook":{
-				language=Language.OOK;
-				break;
-			}
-			default:{
-				throw new WrongFileFormException();
-			}
-		}
-	}
 
 	@Override
 	public void run() {
@@ -58,21 +35,15 @@ public class ExecuteClientThread extends Thread{
 			text=in.readLine();
 			messageInput=in.readLine()+'\n';
 			try {
-				chooseLanguage("bf");
-				switch(language){
-					case BF:{
-						BFRunner=new BrainFuckRunner(text,messageInput);
-						out.println(BFRunner.run());
-						out.flush();
-						out.close();
-					}
-					case OOK:{
-						OOKRunner=new OokRunner(text,messageInput);
-						OOKRunner.run();
-					}
-				}
+					codeRunner=new Runner(text,messageInput);
+					out.println(codeRunner.executeCode());
+					out.flush();
+					out.close();
 			} catch (WrongFileFormException e) {
 				// TODO Auto-generated catch block
+				out.println("Wrong code language type");
+				out.flush();
+				out.close();
 				e.printStackTrace();
 			}
 

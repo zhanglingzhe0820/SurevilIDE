@@ -29,9 +29,12 @@ public class LoginController{
 	@FXML
 	private Button signUp;
 	
+	private Client request;
+	
 	@FXML
 	private void onLogin(ActionEvent event){
-		Client request=new Client(Function.Login);
+		controller.setClient();
+		this.request=controller.request;
 		String temp=request.login(username.getText(), password.getText());//得到返回的信息
 		
 		//显示弹出框
@@ -72,7 +75,8 @@ public class LoginController{
 	
 	@FXML
 	private void onSignUp(ActionEvent event){
-		Client request=new Client(Function.SignUp);
+		controller.setClient();
+		this.request=controller.request;
 		String temp=request.signUp(username.getText(), password.getText());//得到返回的信息
 		
 		//显示弹出框

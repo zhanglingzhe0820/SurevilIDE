@@ -1,4 +1,6 @@
+
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
@@ -70,6 +72,10 @@ public class SignUpClientThread extends Thread{
 			try {
 				String sql="INSERT INTO USER(USERNAME,PASSWORD) VALUES("+"\'"+username+"\'"+","+"\'"+password+"\'"+");";
 				state.executeUpdate(sql);
+				File file=new File("L:\\javaHomework\\UserSpace\\"+username);//为用户分配文件保存空间
+				file.mkdir();
+				File fileForTemp=new File("L:\\javaHomework\\UserSpace\\"+username+"\\temp");//为用户分配文件保存临时空间
+				fileForTemp.mkdir();
 			} catch (SQLException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();

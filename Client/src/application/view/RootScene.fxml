@@ -25,9 +25,9 @@
               <menus>
                 <Menu text="_File">
                   <items>
-                        <MenuItem text="_New" />
+                        <MenuItem onAction="#newText" text="_New" />
                         <MenuItem text="_Open" />
-                        <MenuItem text="_Save" />
+                        <MenuItem onAction="#save" text="_Save" />
                     <MenuItem text="_Close" />
                         <MenuItem onAction="#exit" text="_Exit" />
                   </items>
@@ -37,11 +37,7 @@
                     <MenuItem onAction="#excute" text="_Execute" />
                   </items>
                 </Menu>
-                <Menu text="_Version">
-                  <items>
-                    <MenuItem mnemonicParsing="false" text="About" />
-                  </items>
-                </Menu>
+                <Menu fx:id="versionMenu" text="_Version" />
                   <Menu text="_Team">
                     <items>
                         <MenuItem onAction="#focusOnCommit" text="_Commit" />

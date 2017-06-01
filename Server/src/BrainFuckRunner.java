@@ -5,7 +5,7 @@ import java.util.Scanner;
 import Exceptions.NotEqualLoopException;
 import Exceptions.WrongInputException;
 
-public class BrainFuckRunner {
+public class BrainFuckRunner{
 	
 	private String text;
 	private byte[] space;
@@ -39,14 +39,29 @@ public class BrainFuckRunner {
 	}
 	
 	//开始运行
-	public String run(){
+	public String executeCode(){
+		int loopStartCount=0;
+		int loopEndCount=0;
+		for(char c:text.toCharArray()){
+			if(c=='['){
+				loopStartCount++;
+			}
+			else if(c==']'){
+				loopEndCount++;
+			}
+		}
+		if(loopStartCount!=loopEndCount){
+			return "Not Equal Loop";
+		}
 		while(textPointer<text.length()){
 			try {
 				chooseFunction(text.charAt(textPointer));
 				textPointer++;
-			} catch (WrongInputException | NotEqualLoopException e) {
+			} catch (WrongInputException e) {
 				// TODO Auto-generated catch block
-				return "WRONG INPUT";//需要在网络编程修改发送到客户端
+				return "WRONG INPUT";
+			}catch(NotEqualLoopException e){
+				return "Not Equal Loop";
 			}
 		}
 		return messageOutput;
@@ -167,6 +182,9 @@ public class BrainFuckRunner {
 			if(tempTextPointer<0){
 				throw new NotEqualLoopException();
 			}
+			if(tempTextPointer>=text.length()){
+				throw new NotEqualLoopException();
+			}
 			
 		}while(loopCounter!=0);
 		
@@ -188,6 +206,9 @@ public class BrainFuckRunner {
 			
 			//检查代码前后循环括号是否对应
 			if(tempTextPointer<0){
+				throw new NotEqualLoopException();
+			}
+			if(tempTextPointer>=text.length()){
 				throw new NotEqualLoopException();
 			}
 		}while(loopCounter!=0);

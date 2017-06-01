@@ -2,16 +2,19 @@ package application.view;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import application.Main;
-import javafx.event.ActionEvent;
+import javafx.event.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
@@ -37,7 +40,18 @@ public class Controller{
 	@FXML
 	private Button moveButton;
 	@FXML
-	private Label loginStatus;	 
+	private Label loginStatus;
+	@FXML
+	private Menu versionMenu;
+	
+	public Client request;
+	
+	private ArrayList<String> versions;
+	private ArrayList<MenuItem> versionItems;
+	
+	public Controller(){
+		new RecordThread(this).start();
+	}
 	
 	//鼠标进入各种图标使其变亮
 	@FXML
@@ -71,9 +85,23 @@ public class Controller{
 	}
 	//美化界面结束
 	
+	//建立与服务器的连接，并返回状态
+	public void setClient(){
+		request=new Client();
+		outputText.setText(request.setUpSocket());
+	}
+	
+	@FXML
+	private void newText(ActionEvent event){
+		codeText.clear();
+		gitText.clear();
+		inputText.clear();
+		outputText.clear();
+	}
+	
 	@FXML
 	private void excute(ActionEvent event){
-		Client request=new Client(Function.Execute);
+		setClient();
 		outputText.setText(request.execute(codeText.getText(),inputText.getText()));
 	}
 	
@@ -110,7 +138,63 @@ public class Controller{
 	}
 	
 	public void setLoginStatus(String username){
+		setClient();
+		versions=request.getVersions(username);
 		loginStatus.setText(username);
+		
+		//读取历史版本信息
+		versionItems=new ArrayList<MenuItem>();
+		if(request.equals("cannot read the incoming message")){
+			outputText.setText("cannot read the incoming message");
+		}
+		else if(versions.get(0).equals("None")){
+			versionItems.add(new MenuItem("None"));
+		}
+		else{
+			versions.remove(0);
+			for(String s: versions){
+				MenuItem newItem=new MenuItem(s);
+				newItem.setOnAction(new itemEventHandler());
+				versionItems.add(newItem);
+			}
+		}
+		versionMenu.getItems().addAll(versionItems);
+		versionItems=new ArrayList<MenuItem>();
 	}
+	
+	public void save(){
+		setClient();
+		String result=request.save(loginStatus.getText(),codeText.getText());
+		outputText.setText(result);//使用这个是因为可能有多重错误来返回，这样子可以更便于满足返回值修改的多样化
+		
+		//读取历史版本信息
+		setClient();
+		versions=request.getVersions(loginStatus.getText());
+		if(request.equals("cannot read the incoming message")){
+			outputText.setText("cannot read the incoming message");
+		}
+		else{
+			versions.remove(0);
+			for(String s: versions){
+				MenuItem newItem=new MenuItem(s);
+				newItem.setOnAction(new itemEventHandler());
+				versionItems.add(newItem);
+			}
+		}
+		versionMenu.getItems().clear();
+		versionMenu.getItems().addAll(versionItems);
+	}
+	
+	//取到版本的内容
+	 private class itemEventHandler implements EventHandler<ActionEvent> {  
+		  
+	    @Override  
+	    public void handle(ActionEvent event) {  
+	        String fileName=((MenuItem)event.getSource()).getText();//得到版本名
+	        setClient();
+			String result=request.getFile(loginStatus.getText(),fileName);
+			codeText.setText(result);
+	    }  
+	} 
 
 }
