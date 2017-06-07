@@ -4,8 +4,10 @@ import java.io.IOException;
 
 import application.view.Controller;
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 
@@ -27,7 +29,7 @@ public class Main extends Application {
 		FXMLLoader loader=new FXMLLoader();
 		loader.setLocation(Main.class.getResource("view/RootScene.fxml"));
 		try {
-			rootLayout=(BorderPane) loader.load();
+ 			rootLayout=(BorderPane) loader.load();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -36,6 +38,15 @@ public class Main extends Application {
 		Scene scene = new Scene(rootLayout,600,400);
 		primaryStage.setScene(scene);
 		primaryStage.show();
+		((Controller) loader.getController()).loadStatus();
+		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>(){
+			@Override
+			public void handle(WindowEvent event){
+				((Controller) loader.getController()).clearTemp();
+				((Controller) loader.getController()).saveStatus();
+				System.exit(0);
+			}
+		});
 	}
 	
 	

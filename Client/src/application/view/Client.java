@@ -60,6 +60,7 @@ public class Client implements FunctionClient{
 			clientSocket.close();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
+			messageInput="cannot read the incoming message";
 			e.printStackTrace();
 		}
 		
@@ -78,6 +79,7 @@ public class Client implements FunctionClient{
 				result=in.readLine();	
 			} catch (IOException e) {
 					// TODO Auto-generated catch block
+				result="cannot read the incoming message";
 				e.printStackTrace();
 			}
 			return result;//TRY
@@ -95,6 +97,7 @@ public class Client implements FunctionClient{
 				result=in.readLine();	
 			} catch (IOException e) {
 					// TODO Auto-generated catch block
+				result="cannot read the incoming message";
 				e.printStackTrace();
 			}
 				
@@ -113,6 +116,7 @@ public class Client implements FunctionClient{
 			result=in.readLine();	
 		} catch (IOException e) {
 				// TODO Auto-generated catch block
+			result="cannot read the incoming message";
 			e.printStackTrace();
 		}
 			
@@ -157,10 +161,82 @@ public class Client implements FunctionClient{
 			result=in.readLine();	
 		} catch (IOException e) {
 				// TODO Auto-generated catch block
+			result="cannot read the incoming message";
 			e.printStackTrace();
 		}
 			
 		return result;//TRY
 	
+	}
+
+	@Override
+	public String saveTemp(String username,String code) {
+		out.println("SaveTemp");
+		out.println(username);
+		out.println(code);
+		out.flush();
+		
+		String result="";
+		//收到结果
+		try {
+			result=in.readLine();	
+		} catch (IOException e) {
+				// TODO Auto-generated catch block
+			result="cannot read the incoming message";
+			e.printStackTrace();
+		}
+			
+		return result;//TRY
+	}
+
+	@Override
+	public String back(String username,String versionsName) {
+		out.println("Back");
+		out.println(username);
+		out.println(versionsName);
+		out.flush();
+		
+		String result="";
+		//收到结果
+		try{
+			result=in.readLine();
+		}catch(IOException e){
+			result="cannot read the incoming message";
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	@Override
+	public void clearTemp(String username) {
+		out.println("ClearTemp");
+		out.println(username);
+		out.flush();
+	}
+
+	@Override
+	public void clearAfterTemp(String username, String versionsName) {
+		out.println("RemoveAfter");
+		out.println(username);
+		out.println(versionsName);
+		out.flush();
+	}
+
+	@Override
+	public String move(String username, String versionsName) {
+		out.println("Move");
+		out.println(username);
+		out.println(versionsName);
+		out.flush();
+		
+		String result="";
+		//收到结果
+		try{
+			result=in.readLine();
+		}catch(IOException e){
+			result="cannot read the incoming message";
+			e.printStackTrace();
+		}
+		return result;
 	}
 }

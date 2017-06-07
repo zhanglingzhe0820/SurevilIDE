@@ -35,10 +35,17 @@ public class ExecuteClientThread extends Thread{
 			text=in.readLine();
 			messageInput=in.readLine()+'\n';
 			try {
+				if(!(text==null||text.length()==0)){
 					codeRunner=new Runner(text,messageInput);
 					out.println(codeRunner.executeCode());
 					out.flush();
 					out.close();
+				}
+				else{
+					out.println("Wrong code language type");
+					out.flush();
+					out.close();
+				}
 			} catch (WrongFileFormException e) {
 				// TODO Auto-generated catch block
 				out.println("Wrong code language type");

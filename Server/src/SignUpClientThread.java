@@ -74,7 +74,7 @@ public class SignUpClientThread extends Thread{
 				state.executeUpdate(sql);
 				File file=new File("L:\\javaHomework\\UserSpace\\"+username);//为用户分配文件保存空间
 				file.mkdir();
-				File fileForTemp=new File("L:\\javaHomework\\UserSpace\\"+username+"\\temp");//为用户分配文件保存临时空间
+				File fileForTemp=new File("L:\\javaHomework\\Temp\\"+username);//为用户分配文件保存临时空间
 				fileForTemp.mkdir();
 			} catch (SQLException e1) {
 				// TODO Auto-generated catch block

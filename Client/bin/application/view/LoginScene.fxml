@@ -29,19 +29,25 @@
    <bottom>
       <GridPane BorderPane.alignment="CENTER">
         <columnConstraints>
-          <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="125.0" minWidth="10.0" prefWidth="123.0" />
-          <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="95.0" minWidth="10.0" />
+            <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" />
+          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" />
+          <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button fx:id="signUp" mnemonicParsing="false" onAction="#onSignUp" prefHeight="33.0" prefWidth="91.0" styleClass="commit-button" stylesheets="@TextArea.css" text="注册" GridPane.columnIndex="1">
+            <Button fx:id="signUp" mnemonicParsing="false" onAction="#onSignUp" prefHeight="33.0" prefWidth="91.0" styleClass="commit-button" stylesheets="@TextArea.css" text="注册" GridPane.columnIndex="2">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
             </Button>
-            <Button fx:id="login" layoutX="150.0" layoutY="7.0" mnemonicParsing="false" onAction="#onLogin" prefHeight="33.0" prefWidth="79.0" styleClass="commit-button" stylesheets="@TextArea.css" text="登陆">
+            <Button fx:id="login" layoutX="150.0" layoutY="7.0" mnemonicParsing="false" onAction="#onLogin" prefHeight="33.0" prefWidth="79.0" styleClass="commit-button" stylesheets="@TextArea.css" text="登陆" GridPane.columnIndex="1">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Button>
+            <Button fx:id="logout" layoutX="155.0" layoutY="10.0" mnemonicParsing="false" onAction="#onLogout" prefHeight="33.0" prefWidth="79.0" styleClass="commit-button" stylesheets="@TextArea.css" text="登出">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>

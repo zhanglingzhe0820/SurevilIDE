@@ -10,6 +10,11 @@ public interface FunctionClient {
 	String save(String username,String code);
 	ArrayList<String> getVersions(String username);
 	String getFile(String username,String fileName);
+	String saveTemp(String username, String code);
+	String back(String username,String versionsName);
+	String move(String username,String versionsName);
+	void clearTemp(String username);
+	void clearAfterTemp(String username, String versionsName);
 }
 
 /*New,

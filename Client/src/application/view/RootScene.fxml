@@ -117,7 +117,7 @@
          <top>
             <ToolBar styleClass="menu-bar" stylesheets="@DarkScene.css" BorderPane.alignment="CENTER">
                <items>
-                  <Button fx:id="backButton" mnemonicParsing="false" onMouseEntered="#backButtonEntered" onMouseExited="#backButtonExited" opacity="0.5" prefWidth="25.0" text="Button">
+                  <Button fx:id="backButton" mnemonicParsing="false" onAction="#onBackClicked" onMouseEntered="#backButtonEntered" onMouseExited="#backButtonExited" opacity="0.5" prefWidth="25.0" text="Button">
                      <effect>
                         <ImageInput>
                            <source>
@@ -126,7 +126,7 @@
                         </ImageInput>
                      </effect>
                   </Button>
-                  <Button fx:id="moveButton" mnemonicParsing="false" onMouseEntered="#moveButtonEntered" onMouseExited="#moveButtonExited" opacity="0.5" prefWidth="25.0" text="Button">
+                  <Button fx:id="moveButton" mnemonicParsing="false" onAction="#onMoveClicked" onMouseEntered="#moveButtonEntered" onMouseExited="#moveButtonExited" opacity="0.5" prefWidth="25.0" text="Button">
                      <effect>
                         <ImageInput>
                            <source>

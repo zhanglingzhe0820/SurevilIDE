@@ -1,4 +1,5 @@
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
@@ -55,6 +56,9 @@ public class LoginClientThread extends Thread{
 			String sql="SELECT * FROM USER WHERE USERNAME=="+"\'"+username+"\'"+" AND PASSWORD=="+"\'"+password+"\'"+";";
 			ResultSet result=state.executeQuery(sql);
 			if(result!=null&&result.getString("USERNAME").length()!=0){
+				if(!new File("L:\\javaHomework\\Temp\\"+username).exists()){
+					new File("L:\\javaHomework\\Temp\\"+username).mkdir();
+				}
 				out.println("success");
 			}
 			else{

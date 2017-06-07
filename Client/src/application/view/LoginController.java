@@ -6,11 +6,13 @@ import java.util.ResourceBundle;
 
 import application.Main;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
@@ -29,7 +31,11 @@ public class LoginController{
 	@FXML
 	private Button signUp;
 	
+	@FXML
+	private Button logout;
+	
 	private Client request;
+	private RecordThread recordThread;
 	
 	@FXML
 	private void onLogin(ActionEvent event){
@@ -63,7 +69,9 @@ public class LoginController{
 				newStage.setScene(scene);
 				newStage.show();
 				controller.setLoginStatus(username.getText());
-
+				recordThread=new RecordThread(controller);
+				recordThread.start();
+				controller.getCode().setOnKeyPressed(new codeEventHandler());
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -71,6 +79,11 @@ public class LoginController{
 		
 		}
 		
+	}
+	
+	@FXML
+	private void onLogout(ActionEvent event){
+		controller.setLoginStatus("未登录");
 	}
 	
 	@FXML
@@ -110,11 +123,31 @@ public class LoginController{
 			}
 		}
 	}
+	
+	//关闭保存临时文件的线程
+	@Override
+	protected void finalize(){
+		recordThread.interrupt();
+	}
 
 	//实现Controller和loginContoller之间的通信
 	public void init(Controller controller) {
 		// TODO Auto-generated method stub
 		this.controller=controller;
 	}
+	
+	//删去临时文件不需要用到的一部分
+	private class codeEventHandler implements EventHandler<KeyEvent> {  
+		private Client request;
+		@Override
+		public void handle(KeyEvent event) {
+			if(!controller.getVersionsName().equals("")){
+				controller.setClient();
+				this.request=controller.request;
+				request.clearAfterTemp(controller.getLoginStatus(),controller.getVersionsName());
+				controller.setVersionsName("");
+			}
+		}  
+	} 
 
 }

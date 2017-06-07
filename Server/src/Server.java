@@ -1,6 +1,5 @@
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.*;
 
@@ -38,7 +37,7 @@ public class Server {
 		}
 	}
 	
-	//根据传输的第一条字符串判断请求的功
+	//根据传输的第一条字符串判断请求的功能
 	public void chooseFunction(Socket incoming,String info,BufferedReader in){
 		switch(info){
 			case "New":{
@@ -90,6 +89,31 @@ public class Server {
 			case "GetFile":{
 				count++;
 				(new GetFileClientThread(count,incoming,in)).start();
+				break;
+			}
+			case "SaveTemp":{
+				count++;
+				(new SaveTempThread(count,incoming,in)).start();
+				break;
+			}
+			case "Back":{
+				count++;
+				(new BackThread(count,incoming,in)).start();
+				break;
+			}
+			case "ClearTemp":{
+				count++;
+				(new ClearTempThread(count,incoming,in)).start();
+				break;
+			}
+			case "RemoveAfter":{
+				count++;
+				(new ClearAfterTempThread(count,incoming,in)).start();
+				break;
+			}
+			case "Move":{
+				count++;
+				(new MoveThread(count,incoming,in)).start();
 				break;
 			}
 		}
