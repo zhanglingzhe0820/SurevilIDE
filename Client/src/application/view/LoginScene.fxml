@@ -22,7 +22,7 @@
             <Label text="用户名：" />
             <Label text="密码：" GridPane.rowIndex="1" />
             <TextField fx:id="username" styleClass="code-text" stylesheets="@TextArea.css" GridPane.columnIndex="1" />
-            <TextField fx:id="password" styleClass="code-text" stylesheets="@TextArea.css" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <PasswordField fx:id="passwordText" styleClass="code-text" stylesheets="@TextArea.css" GridPane.columnIndex="1" GridPane.rowIndex="1" />
          </children>
       </GridPane>
    </center>

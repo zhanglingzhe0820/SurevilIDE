@@ -1,0 +1,32 @@
+package application.view;
+
+import javafx.scene.input.InputEvent;
+import javafx.scene.input.KeyEvent;
+
+public class RecordThread extends Thread{
+	Controller controller;
+	private Client request;
+	private float time1=0.0f;//第一次敲击键盘
+	private float time2=0.0f;//第二次敲击键盘
+	
+	public RecordThread(Controller controller){
+		this.controller=controller;
+	}
+
+	public void run(){
+		while(true){
+			//与服务器连接不断传送codeText的数据
+			try {
+				Thread.sleep(1000);//设定间隔时间
+				if(KeyEvent.ANY)
+				request=new Client();
+				controller.setOutputText(request.setUpSocket());//返回连接状态
+				
+				request.saveTemp(controller.getLoginStatus(),controller.getCodeText());
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+}

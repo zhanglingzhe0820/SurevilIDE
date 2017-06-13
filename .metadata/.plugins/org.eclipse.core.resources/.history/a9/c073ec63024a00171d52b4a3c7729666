@@ -1,0 +1,26 @@
+package application.view;
+
+public class RecordThread extends Thread{
+	Controller controller;
+	private Client request;
+	
+	public RecordThread(Controller controller){
+		this.controller=controller;
+	}
+
+	public void run(){
+		while(true){
+			//与服务器连接不断传送codeText的数据
+			try {
+				Thread.sleep(1000);//设定间隔时间
+				request=new Client();
+				controller.setOutputText(request.setUpSocket());//返回连接状态
+				
+				request.saveTemp(controller.getLoginStatus(),controller.getCodeText());
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+}

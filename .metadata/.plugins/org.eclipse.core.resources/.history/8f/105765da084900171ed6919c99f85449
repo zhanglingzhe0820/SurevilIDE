@@ -1,0 +1,122 @@
+package application.view;
+
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
+
+import application.Main;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
+
+public class LoginController{
+	
+	private Controller controller;
+	@FXML
+	private TextField username;
+	
+	@FXML
+	private TextField password;
+	
+	@FXML
+	private Button login;
+	
+	@FXML
+	private Button signUp;
+	
+	private Client request;
+	private RecordThread recordThread;
+	
+	@FXML
+	private void onLogin(ActionEvent event){
+		controller.setClient();
+		this.request=controller.request;
+		String temp=request.login(username.getText(), password.getText());//得到返回的信息
+		
+		//显示弹出框
+		if(temp.equals("wrong")){
+			FXMLLoader loader=new FXMLLoader();
+			loader.setLocation(Main.class.getResource("view/WrongScene.fxml"));
+			try {
+				BorderPane loginLayout=(BorderPane) loader.load();
+				Scene scene=new Scene(loginLayout,200,120);
+				Stage newStage=new Stage();
+				newStage.setScene(scene);
+				newStage.show();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		else{
+			FXMLLoader loader=new FXMLLoader();
+			loader.setLocation(Main.class.getResource("view/LoginSuccessfully.fxml"));
+			try {
+				BorderPane loginLayout=(BorderPane) loader.load();
+				Scene scene=new Scene(loginLayout,200,120);
+				Stage newStage=new Stage();
+				newStage.setScene(scene);
+				newStage.show();
+				controller.setLoginStatus(username.getText());
+				recordThread=new RecordThread(controller);
+				recordThread.start();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+		
+		}
+		
+	}
+	
+	@FXML
+	private void onSignUp(ActionEvent event){
+		controller.setClient();
+		this.request=controller.request;
+		String temp=request.signUp(username.getText(), password.getText());//得到返回的信息
+		
+		//显示弹出框
+		if(temp.equals("wrong")){
+			FXMLLoader loader=new FXMLLoader();
+			loader.setLocation(Main.class.getResource("view/AlreadyHasUsername.fxml"));
+			try {
+				BorderPane loginLayout=(BorderPane) loader.load();
+				Scene scene=new Scene(loginLayout,200,120);
+				Stage newStage=new Stage();
+				newStage.setScene(scene);
+				newStage.show();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		else{
+			FXMLLoader loader=new FXMLLoader();
+			loader.setLocation(Main.class.getResource("view/SignUpSuccessfully.fxml"));
+			try {
+				BorderPane loginLayout=(BorderPane) loader.load();
+				Scene scene=new Scene(loginLayout,200,120);
+				Stage newStage=new Stage();
+				newStage.setScene(scene);
+				newStage.show();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+
+	//实现Controller和loginContoller之间的通信
+	public void init(Controller controller) {
+		// TODO Auto-generated method stub
+		this.controller=controller;
+	}
+
+}

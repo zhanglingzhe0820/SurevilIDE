@@ -24,7 +24,7 @@ public class LoginController{
 	private TextField username;
 	
 	@FXML
-	private TextField password;
+	private PasswordField passwordText;
 	
 	@FXML
 	private Button login;
@@ -42,7 +42,7 @@ public class LoginController{
 	private void onLogin(ActionEvent event){
 		controller.setClient();
 		this.request=controller.request;
-		String temp=request.login(username.getText(), password.getText());//得到返回的信息
+		String temp=request.login(username.getText(), passwordText.getText());//得到返回的信息
 		
 		//显示弹出框
 		if(temp.equals("wrong")){
@@ -91,7 +91,7 @@ public class LoginController{
 	private void onSignUp(ActionEvent event){
 		controller.setClient();
 		this.request=controller.request;
-		String temp=request.signUp(username.getText(), password.getText());//得到返回的信息
+		String temp=request.signUp(username.getText(), passwordText.getText());//得到返回的信息
 		
 		//显示弹出框
 		if(temp.equals("wrong")){
@@ -149,6 +149,6 @@ public class LoginController{
 				controller.setVersionsName("");
 			}
 		}  
-	} 
+	}
 
 }

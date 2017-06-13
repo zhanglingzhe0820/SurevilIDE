@@ -87,6 +87,7 @@
                   </TextField>
                   <HBox spacing="20.0" GridPane.columnIndex="1" GridPane.halignment="CENTER">
                      <children>
+                        <Button fx:id="Clone" mnemonicParsing="false" onAction="#onCloneClicked" styleClass="commit-button" stylesheets="@TextArea.css" text="Clone" />
                         <Button mnemonicParsing="false" styleClass="commit-button" stylesheets="@../../../bin/application/view/TextArea.css" text="Commit" />
                         <Button mnemonicParsing="false" styleClass="commit-button" stylesheets="@../../../bin/application/view/TextArea.css" text="Commit And Push" GridPane.columnIndex="1" />
                      </children>
@@ -97,7 +98,7 @@
                </children>
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-                  <ColumnConstraints halignment="RIGHT" hgrow="NEVER" minWidth="10.0" />
+                  <ColumnConstraints halignment="CENTER" hgrow="NEVER" minWidth="10.0" />
                </columnConstraints>
                <rowConstraints>
                   <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />

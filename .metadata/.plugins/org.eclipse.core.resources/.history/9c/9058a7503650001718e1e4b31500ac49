@@ -1,0 +1,61 @@
+package application.controller;
+
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.ProgressBar;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.paint.Color;
+import javafx.stage.Stage;
+
+public class Progress extends Application {
+	private ProgressBar progressBar;
+	private Stage stage;
+	private ProgressThread progressThread;
+	
+	public ProgressBar getProgressBar(){
+		return progressBar;
+	}
+	
+	public Stage getStage(){
+		return stage;
+	}
+	
+	public ProgressThread getProgressThread(){
+		return progressThread;
+	}
+
+	@Override
+	public void start(Stage stage) throws Exception {
+		this.stage=stage;
+		BorderPane progressPane = new BorderPane();
+	    Scene scene = new Scene(progressPane, 200, 120, Color.DIMGRAY);
+	    progressBar = new ProgressBar(0);
+	    progressPane.setCenter(progressBar);
+	        
+	    //创造进度条的移动
+	    progressBar.setProgress(0);
+	    progressThread=new ProgressThread(2000);
+	    progressThread.start();
+	    stage.setScene(scene);
+	    stage.show();
+	}
+
+	public class ProgressThread extends Thread{
+		int time=2000;
+		
+		public ProgressThread(int time){
+			this.time=time;
+		}
+    	
+    	@Override
+    	public void run(){
+    		for(int i=0;i<100;i++){
+            	try {
+            		progressBar.setProgress((i+1)/100.0);
+					Thread.sleep(time/100);
+				} catch (InterruptedException e) {
+				}
+            }
+    	}
+    }
+}

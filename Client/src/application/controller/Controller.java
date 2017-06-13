@@ -9,19 +9,27 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import application.Main;
 import application.model.Client;
+import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class Controller{
@@ -49,6 +57,11 @@ public class Controller{
 	
 	public Client request;
 	
+	private Stage stage;
+	private ProgressBar progressBar;
+	private Button okButton;
+	private String finalPath;
+	private ProgressThread progressThread;
 	private ArrayList<String> versions;
 	private ArrayList<MenuItem> versionItems;
 	private String versionsName="";
@@ -170,6 +183,102 @@ public class Controller{
 		else if(tempText.equals("not_move_last")){
 			versionsName="";
 		}
+	}
+	
+	@FXML
+	private void onCloneClicked(ActionEvent event){
+		try {//https://github.com/zhanglingzhe0820/BFtrial.git/123.bf
+			//将文件从github clone下来
+			StringBuilder gitPath=new StringBuilder();
+			gitPath.append("https://github.com/");
+			gitPath.append(gitText.getText().split("/")[3]+"/");
+			gitPath.append(gitText.getText().split("/")[4]);
+			Process process=Runtime.getRuntime().exec("cmd /c L:/Git/git-cmd.exe git clone "+gitPath);
+			showProgressBar(5000);//显示进度表
+			String[] s=this.getClass().getResource("").getPath().split("/");
+			String path="";
+			path=s[0];
+			for(int i=1;i<s.length-3;i++){
+				path=path+s[i]+"/";
+			}
+			path=path+gitText.getText().split("/")[4].split("\\.")[0]+"/"+gitText.getText().split("/")[5];
+			
+			//运行读文件线程
+			String finalPath=path;
+			new FileThread(finalPath,this).start();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	@FXML
+	private void onCommitClicked(ActionEvent event){
+		
+		try {
+			File file=new File(finalPath);
+			PrintWriter writer=new PrintWriter(file);
+			writer.println(codeText.getText());
+			writer.flush();
+			writer.close();
+			
+			Process process1=Runtime.getRuntime().exec("cmd /c L:/Git/git-cmd.exe add * -f ");
+			Process process2=Runtime.getRuntime().exec("cmd /c L:/Git/git-cmd.exe git commit -m "+gitText.getText());
+		} catch (FileNotFoundException e) {
+			outputText.setText("错误的文件路径，无法commit");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
+	@FXML
+	private void onCommitAndPushClicked(ActionEvent event){
+		
+		try {
+			File file=new File(finalPath);
+			PrintWriter writer=new PrintWriter(file);
+			writer.println(codeText.getText());
+			writer.flush();
+			writer.close();
+			
+			Process process1=Runtime.getRuntime().exec("cmd /c L:/Git/git-cmd.exe git add * -f ");
+			Process process2=Runtime.getRuntime().exec("cmd /c L:/Git/git-cmd.exe git commit -m "+gitText.getText());
+			Process process3=Runtime.getRuntime().exec("cmd /c L:/Git/git-cmd.exe git push origin master");
+		} catch (FileNotFoundException e) {
+			outputText.setText("错误的文件路径，无法commit");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
+	public Button getokButton(){
+		return okButton;
+	}
+	
+	public TextField getGit(){
+		return gitText;
+	}
+	
+	public ProgressBar getProgressBar(){
+		return progressBar;
+	}
+	
+	public ProgressThread getProgressThread(){
+		return progressThread;
+	}
+	
+	public Stage getStage(){
+		return stage;
 	}
 	
 	public TextArea getCode(){
@@ -301,6 +410,15 @@ public class Controller{
 		versionItems=new ArrayList<MenuItem>();
 	}
 	
+	//关闭stage
+	private class progressEventHandler implements EventHandler<ActionEvent> {  
+		  
+	    @Override  
+	    public void handle(ActionEvent event) {  
+	        stage.close();
+	    }  
+	} 
+	
 	//取到版本的内容
 	private class itemEventHandler implements EventHandler<ActionEvent> {  
 		  
@@ -323,6 +441,46 @@ public class Controller{
 				versionsName="";
 			}
 		}  
-	} 
-
+	}
+		
+	private void showProgressBar(int time) throws InterruptedException, IOException{
+		stage=new Stage();
+		Platform.setImplicitExit(false);
+	    BorderPane progressPane = new BorderPane();
+	    Scene scene = new Scene(progressPane, 200, 120, Color.DIMGRAY);
+	    
+	    VBox vbox=new VBox();
+	    vbox.setSpacing(10);
+	    vbox.setAlignment(Pos.CENTER);
+	    progressBar = new ProgressBar(0);
+	    okButton=new Button("OK");
+	    okButton.setDisable(true);
+	    okButton.setOnAction(new progressEventHandler());
+	    vbox.getChildren().addAll(progressBar,okButton);
+	    progressPane.setCenter(vbox);
+	        
+	    //创造进度条的移动
+	    progressBar.setProgress(0);
+	    progressThread=new ProgressThread(time);
+	    progressThread.start();
+	    stage.setScene(scene);
+	    stage.show();
+	}
+	
+	class ProgressThread extends Thread{
+		int time=2000;
+		
+		public ProgressThread(int time){
+			this.time=time;
+		}
+		@Override
+		public void run(){
+			for (int i = 0; i < 100; i++) {
+	   		 	try {
+	   		 		progressBar.setProgress(i/100.0);
+					Thread.sleep(time/100);
+				} catch (InterruptedException e) {}
+	        }
+		}
+	}
 }
