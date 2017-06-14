@@ -5,7 +5,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import application.Main;
@@ -62,7 +61,6 @@ public class Controller{
 	private ProgressBar progressBar;
 	private Button okButton;
 	private String finalPath;
-	private String filePath;
 	private ProgressThread progressThread;
 	private ArrayList<String> versions;
 	private ArrayList<MenuItem> versionItems;
@@ -203,11 +201,10 @@ public class Controller{
 			for(int i=1;i<s.length-3;i++){
 				path=path+s[i]+"/";
 			}
-			filePath=path+gitText.getText().split("/")[4].split("\\.")[0];
 			path=path+gitText.getText().split("/")[4].split("\\.")[0]+"/"+gitText.getText().split("/")[5];
 			
 			//运行读文件线程
-			finalPath=path;
+			String finalPath=path;
 			new FileThread(finalPath,this).start();
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -224,27 +221,17 @@ public class Controller{
 	@FXML
 	private void onCommitClicked(ActionEvent event){
 		
-		PrintWriter pw;
-		PrintWriter fileWriter;
-		File file=new File(finalPath);
 		try {
-			//写入文件
-			fileWriter=new PrintWriter(file);
-			fileWriter.println(codeText.getText());
-			fileWriter.flush();
-			fileWriter.close();
+			File file=new File(finalPath);
+			PrintWriter writer=new PrintWriter(file);
+			writer.println(codeText.getText());
+			writer.flush();
+			writer.close();
 			
-			Process process=Runtime.getRuntime().exec("cmd");
-			pw=new PrintWriter(process.getOutputStream(),true);
-			pw.println("l:");
-			pw.println("cd "+filePath);
-			pw.println("git add * -f");
-			pw.println("git commit -m "+gitText.getText());
-			pw.flush(); 
-			pw.close();
+			Process process1=Runtime.getRuntime().exec("cmd /c L:/Git/git-cmd.exe add * -f ");
+			Process process2=Runtime.getRuntime().exec("cmd /c L:/Git/git-cmd.exe git commit -m "+gitText.getText());
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			outputText.setText("错误的文件路径，无法commit");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -255,28 +242,18 @@ public class Controller{
 	@FXML
 	private void onCommitAndPushClicked(ActionEvent event){
 		
-		PrintWriter pw;
-		PrintWriter fileWriter;
-		File file=new File(finalPath);
 		try {
-			//写入文件
-			fileWriter=new PrintWriter(file);
-			fileWriter.println(codeText.getText());
-			fileWriter.flush();
-			fileWriter.close();
+			File file=new File(finalPath);
+			PrintWriter writer=new PrintWriter(file);
+			writer.println(codeText.getText());
+			writer.flush();
+			writer.close();
 			
-			Process process=Runtime.getRuntime().exec("cmd");
-			pw=new PrintWriter(process.getOutputStream(),true);
-			pw.println("l:");
-			pw.println("cd "+filePath);
-			pw.println("git add * -f");
-			pw.println("git commit -m "+gitText.getText());
-			pw.println("git push origin master");
-			pw.flush(); 
-			pw.close();
+			Process process1=Runtime.getRuntime().exec("cmd /c L:/Git/git-cmd.exe git add * -f ");
+			Process process2=Runtime.getRuntime().exec("cmd /c L:/Git/git-cmd.exe git commit -m "+gitText.getText());
+			Process process3=Runtime.getRuntime().exec("cmd /c L:/Git/git-cmd.exe git push origin master");
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			outputText.setText("错误的文件路径，无法commit");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -356,20 +333,6 @@ public class Controller{
 			}
 			loginStatusReader.close();
 			
-			//加载git信息filePath
-			BufferedReader filePathStatusReader=new BufferedReader(new FileReader(new File("L:\\javaHomework\\Client\\Status\\FilePathStatus.txt")));
-			if((line=filePathStatusReader.readLine())!=null){
-				filePath=line;
-			}
-			filePathStatusReader.close();
-			
-			//加载git信息finalPath
-			BufferedReader finalPathStatusReader=new BufferedReader(new FileReader(new File("L:\\javaHomework\\Client\\Status\\FinalPathStatus.txt")));
-			if((line=finalPathStatusReader.readLine())!=null){
-				finalPath=line;
-			}
-			finalPathStatusReader.close();
-			
 			//初始化连接
 			if(!loginStatus.getText().equals("未登录")){
 				//初始化保存临时文件
@@ -402,18 +365,6 @@ public class Controller{
 			loginStatusWriter.print(loginStatus.getText());
 			loginStatusWriter.flush();
 			loginStatusWriter.close();
-			
-			//保存关于git的目标地址filePath
-			PrintWriter filePathWriter=new PrintWriter(new File("L:\\javaHomework\\Client\\Status\\FilePathStatus.txt"));
-			filePathWriter.print(filePath);
-			filePathWriter.flush();
-			filePathWriter.close();
-			
-			//保存关于git的目标文件夹finalPath
-			PrintWriter finalPathWriter=new PrintWriter(new File("L:\\javaHomework\\Client\\Status\\FinalPathStatus.txt"));
-			finalPathWriter.print(finalPath);
-			finalPathWriter.flush();
-			finalPathWriter.close();	
 		} catch (FileNotFoundException e) {
 			outputText.clear();
 			outputText.setText("无法保存当前状态");

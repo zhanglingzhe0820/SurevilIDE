@@ -358,14 +358,14 @@ public class Controller{
 			
 			//加载git信息filePath
 			BufferedReader filePathStatusReader=new BufferedReader(new FileReader(new File("L:\\javaHomework\\Client\\Status\\FilePathStatus.txt")));
-			if((line=filePathStatusReader.readLine())!=null){
+			if((line=loginStatusReader.readLine())!=null){
 				filePath=line;
 			}
 			filePathStatusReader.close();
 			
 			//加载git信息finalPath
 			BufferedReader finalPathStatusReader=new BufferedReader(new FileReader(new File("L:\\javaHomework\\Client\\Status\\FinalPathStatus.txt")));
-			if((line=finalPathStatusReader.readLine())!=null){
+			if((line=loginStatusReader.readLine())!=null){
 				finalPath=line;
 			}
 			finalPathStatusReader.close();

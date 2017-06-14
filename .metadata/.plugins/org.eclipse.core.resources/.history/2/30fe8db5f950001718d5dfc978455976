@@ -356,20 +356,6 @@ public class Controller{
 			}
 			loginStatusReader.close();
 			
-			//加载git信息filePath
-			BufferedReader filePathStatusReader=new BufferedReader(new FileReader(new File("L:\\javaHomework\\Client\\Status\\FilePathStatus.txt")));
-			if((line=filePathStatusReader.readLine())!=null){
-				filePath=line;
-			}
-			filePathStatusReader.close();
-			
-			//加载git信息finalPath
-			BufferedReader finalPathStatusReader=new BufferedReader(new FileReader(new File("L:\\javaHomework\\Client\\Status\\FinalPathStatus.txt")));
-			if((line=finalPathStatusReader.readLine())!=null){
-				finalPath=line;
-			}
-			finalPathStatusReader.close();
-			
 			//初始化连接
 			if(!loginStatus.getText().equals("未登录")){
 				//初始化保存临时文件
@@ -402,18 +388,6 @@ public class Controller{
 			loginStatusWriter.print(loginStatus.getText());
 			loginStatusWriter.flush();
 			loginStatusWriter.close();
-			
-			//保存关于git的目标地址filePath
-			PrintWriter filePathWriter=new PrintWriter(new File("L:\\javaHomework\\Client\\Status\\FilePathStatus.txt"));
-			filePathWriter.print(filePath);
-			filePathWriter.flush();
-			filePathWriter.close();
-			
-			//保存关于git的目标文件夹finalPath
-			PrintWriter finalPathWriter=new PrintWriter(new File("L:\\javaHomework\\Client\\Status\\FinalPathStatus.txt"));
-			finalPathWriter.print(finalPath);
-			finalPathWriter.flush();
-			finalPathWriter.close();	
 		} catch (FileNotFoundException e) {
 			outputText.clear();
 			outputText.setText("无法保存当前状态");
