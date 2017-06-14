@@ -204,7 +204,7 @@ public class Controller{
 			path=path+gitText.getText().split("/")[4].split("\\.")[0]+"/"+gitText.getText().split("/")[5];
 			
 			//运行读文件线程
-			String finalPath=path;
+			finalPath=path;
 			new FileThread(finalPath,this).start();
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -228,7 +228,7 @@ public class Controller{
 			writer.flush();
 			writer.close();
 			
-			Process process1=Runtime.getRuntime().exec("cmd /c L:/Git/git-cmd.exe add * -f ");
+			Process process1=Runtime.getRuntime().exec("cmd /c L:/Git/git-cmd.exe add * -f");
 			Process process2=Runtime.getRuntime().exec("cmd /c L:/Git/git-cmd.exe git commit -m "+gitText.getText());
 		} catch (FileNotFoundException e) {
 			outputText.setText("错误的文件路径，无法commit");
@@ -249,7 +249,7 @@ public class Controller{
 			writer.flush();
 			writer.close();
 			
-			Process process1=Runtime.getRuntime().exec("cmd /c L:/Git/git-cmd.exe git add * -f ");
+			Process process1=Runtime.getRuntime().exec("cmd /c L:/Git/git-cmd.exe git add * -f");
 			Process process2=Runtime.getRuntime().exec("cmd /c L:/Git/git-cmd.exe git commit -m "+gitText.getText());
 			Process process3=Runtime.getRuntime().exec("cmd /c L:/Git/git-cmd.exe git push origin master");
 		} catch (FileNotFoundException e) {
