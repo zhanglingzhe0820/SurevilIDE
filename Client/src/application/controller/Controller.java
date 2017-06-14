@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import application.Main;
@@ -61,6 +62,7 @@ public class Controller{
 	private ProgressBar progressBar;
 	private Button okButton;
 	private String finalPath;
+	private String fileName;
 	private ProgressThread progressThread;
 	private ArrayList<String> versions;
 	private ArrayList<MenuItem> versionItems;
@@ -193,6 +195,7 @@ public class Controller{
 			gitPath.append("https://github.com/");
 			gitPath.append(gitText.getText().split("/")[3]+"/");
 			gitPath.append(gitText.getText().split("/")[4]);
+			fileName=gitText.getText().split("/")[4];
 			Process process=Runtime.getRuntime().exec("cmd /c L:/Git/git-cmd.exe git clone "+gitPath);
 			showProgressBar(5000);//显示进度表
 			String[] s=this.getClass().getResource("").getPath().split("/");
@@ -221,17 +224,18 @@ public class Controller{
 	@FXML
 	private void onCommitClicked(ActionEvent event){
 		
+		PrintWriter pw;
 		try {
-			File file=new File(finalPath);
-			PrintWriter writer=new PrintWriter(file);
-			writer.println(codeText.getText());
-			writer.flush();
-			writer.close();
-			
-			Process process1=Runtime.getRuntime().exec("cmd /c L:/Git/git-cmd.exe add * -f");
-			Process process2=Runtime.getRuntime().exec("cmd /c L:/Git/git-cmd.exe git commit -m "+gitText.getText());
+			Process process=Runtime.getRuntime().exec("cmd");
+			pw=new PrintWriter(process.getOutputStream(),true);
+			pw.println("cd "+fileName);
+			pw.println("git add * -f");
+			pw.println("git commit -m "+gitText.getText());
+			pw.flush(); 
+			pw.close();
 		} catch (FileNotFoundException e) {
-			outputText.setText("错误的文件路径，无法commit");
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -242,18 +246,19 @@ public class Controller{
 	@FXML
 	private void onCommitAndPushClicked(ActionEvent event){
 		
+		PrintWriter pw;
 		try {
-			File file=new File(finalPath);
-			PrintWriter writer=new PrintWriter(file);
-			writer.println(codeText.getText());
-			writer.flush();
-			writer.close();
-			
-			Process process1=Runtime.getRuntime().exec("cmd /c L:/Git/git-cmd.exe git add * -f");
-			Process process2=Runtime.getRuntime().exec("cmd /c L:/Git/git-cmd.exe git commit -m "+gitText.getText());
-			Process process3=Runtime.getRuntime().exec("cmd /c L:/Git/git-cmd.exe git push origin master");
+			Process process=Runtime.getRuntime().exec("cmd");
+			pw=new PrintWriter(process.getOutputStream(),true);
+			pw.println("cd "+fileName);
+			pw.println("git add * -f");
+			pw.println("git commit -m "+gitText.getText());
+			pw.println("git push origin master");
+			pw.flush(); 
+			pw.close();
 		} catch (FileNotFoundException e) {
-			outputText.setText("错误的文件路径，无法commit");
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
