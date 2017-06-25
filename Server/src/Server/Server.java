@@ -15,6 +15,7 @@ import Threads.MoveThread;
 import Threads.SaveClientThread;
 import Threads.SaveTempThread;
 import Threads.SignUpClientThread;
+import Threads.StepInThread;
 
 public class Server {
 	private ServerSocket serverSocket;
@@ -127,6 +128,11 @@ public class Server {
 			case "Move":{
 				count++;
 				(new MoveThread(count,incoming,in)).start();
+				break;
+			}
+			case "StepIn":{
+				count++;
+				(new StepInThread(count,incoming,in)).start();
 				break;
 			}
 		}

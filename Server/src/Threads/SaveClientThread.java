@@ -30,11 +30,13 @@ public class SaveClientThread extends Thread{
 	public synchronized void run() {
 		// TODO Auto-generated method stub
 		try {
+			String language="";
 			String text="";
 			String username="";
 			System.out.println("客户端已连接");
 
 			out=new PrintWriter(incoming.getOutputStream());
+			language=in.readLine();
 			username=in.readLine();
 			text=in.readLine()+'\n';
 			
@@ -45,13 +47,10 @@ public class SaveClientThread extends Thread{
 			}
 			
 			else{
-				if(text.equals("\n")){
-					file=new File("L:\\javaHomework\\UserSpace\\"+username+"\\"+getNowTime()+".txt");//创建存档地址
-				}
-				else if(text.substring(0,1).equals("+")||text.substring(0,1).equals("-")||text.substring(0,1).equals(",")||text.substring(0,1).equals(".")||text.substring(0,1).equals("<")||text.substring(0,1).equals(">")||text.substring(0,1).equals("[")||text.substring(0,1).equals("]")){
+				if(language.equals("BrainFuck")){
 					file=new File("L:\\javaHomework\\UserSpace\\"+username+"\\"+getNowTime()+".bf");//创建存档地址
 				}
-				else if(text.substring(0,3).toLowerCase().equals("ook")){
+				else if(language.equals("Ook")){
 					file=new File("L:\\javaHomework\\UserSpace\\"+username+"\\"+getNowTime()+".ook");//创建存档地址
 				}
 				else{

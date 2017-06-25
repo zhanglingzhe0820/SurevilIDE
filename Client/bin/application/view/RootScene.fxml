@@ -14,7 +14,8 @@
    <top>
       <GridPane styleClass="menu-bar" stylesheets="@DarkScene.css" BorderPane.alignment="CENTER">
         <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+            <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" />
           <ColumnConstraints halignment="RIGHT" hgrow="NEVER" minWidth="0.0" />
         </columnConstraints>
         <rowConstraints>
@@ -45,9 +46,14 @@
                         <MenuItem onAction="#focusOnCommit" text="Commit _And Push" />
                     </items>
                   </Menu>
+                  <Menu text="_Debug">
+                    <items>
+                      <MenuItem text="_StepIn" />
+                    </items>
+                  </Menu>
               </menus>
             </MenuBar>
-            <HBox spacing="20.0" GridPane.columnIndex="1">
+            <HBox spacing="20.0" GridPane.columnIndex="2">
                <children>
                   <Label fx:id="loginStatus" alignment="CENTER" style="-fx-text-fill: #9933CC; -fx-alignment: CENTER; -fx-border-radius: 15;" text="未登录" textFill="#660099" wrapText="true">
                      <font>
@@ -65,6 +71,7 @@
                   </Button>
                </children>
             </HBox>
+            <ComboBox fx:id="languageBox" promptText="Language" styleClass="code-text" stylesheets="@TextArea.css" GridPane.columnIndex="1" />
          </children>
       </GridPane>
    </top>

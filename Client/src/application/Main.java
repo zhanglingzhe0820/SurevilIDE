@@ -39,6 +39,8 @@ public class Main extends Application {
 		primaryStage.setScene(scene);
 		primaryStage.show();
 		((Controller) loader.getController()).loadStatus();
+		((Controller) loader.getController()).getLanguageBox().getItems().add("BrainFuck");
+		((Controller) loader.getController()).getLanguageBox().getItems().add("Ook");
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>(){
 			@Override
 			public void handle(WindowEvent event){

@@ -1,9 +1,0 @@
-package application.controller;
-
-public class ShowProgressThread extends Thread {
-
-	@Override
-	public void run(){
-		
-	}
-}

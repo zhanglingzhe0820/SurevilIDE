@@ -104,8 +104,9 @@ public class Client implements FunctionClient{
 			return result;//TRY
 	}
 	
-	public String save(String username,String code){
+	public String save(String language,String username,String code){
 		out.println("Save");
+		out.println(language);
 		out.println(username);
 		out.println(code);
 		out.flush();
@@ -227,6 +228,25 @@ public class Client implements FunctionClient{
 		out.println("Move");
 		out.println(username);
 		out.println(versionsName);
+		out.flush();
+		
+		String result="";
+		//收到结果
+		try{
+			result=in.readLine();
+		}catch(IOException e){
+			result="cannot read the incoming message";
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	@Override
+	public String stepIn(int index, String code,String input) {
+		out.println("StepIn");
+		out.println(index);
+		out.println(code);
+		out.println(input);
 		out.flush();
 		
 		String result="";

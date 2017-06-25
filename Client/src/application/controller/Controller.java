@@ -19,6 +19,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
@@ -55,6 +56,9 @@ public class Controller{
 	private Label loginStatus;
 	@FXML
 	private Menu versionMenu;
+	@FXML
+	private ComboBox<String> languageBox;
+	
 	
 	public Client request;
 	
@@ -67,6 +71,7 @@ public class Controller{
 	private ArrayList<String> versions;
 	private ArrayList<MenuItem> versionItems;
 	private String versionsName="";
+	private int index=0;
 	
 	//鼠标进入各种图标使其变亮
 	@FXML
@@ -234,6 +239,8 @@ public class Controller{
 			fileWriter.flush();
 			fileWriter.close();
 			
+			showCommitProgressBar(3000);
+			
 			Process process=Runtime.getRuntime().exec("cmd");
 			pw=new PrintWriter(process.getOutputStream(),true);
 			pw.println("l:");
@@ -265,6 +272,8 @@ public class Controller{
 			fileWriter.flush();
 			fileWriter.close();
 			
+			showCommitProgressBar(3000);
+			
 			Process process=Runtime.getRuntime().exec("cmd");
 			pw=new PrintWriter(process.getOutputStream(),true);
 			pw.println("l:");
@@ -282,6 +291,13 @@ public class Controller{
 			e.printStackTrace();
 		}
 		
+	}
+	
+	@FXML
+	private void onStepInClicked(ActionEvent event){
+		
+		setClient();
+		request.stepIn(index,codeText.getText(),inputText.getText());
 	}
 	
 	public Button getokButton(){
@@ -314,6 +330,10 @@ public class Controller{
 	
 	public String getVersionsName(){
 		return versionsName;
+	}
+	
+	public ComboBox<String> getLanguageBox(){
+		return languageBox;
 	}
 	
 	public String getCodeText(){
@@ -428,7 +448,7 @@ public class Controller{
 	
 	public void save(){
 		setClient();
-		String result=request.save(loginStatus.getText(),codeText.getText());
+		String result=request.save(languageBox.getValue(),loginStatus.getText(),codeText.getText());
 		outputText.setText(result);//使用这个是因为可能有多重错误来返回，这样子可以更便于满足返回值修改的多样化
 		
 		//读取历史版本信息
@@ -490,6 +510,48 @@ public class Controller{
 				versionsName="";
 			}
 		}  
+	}
+	
+	private void showCommitProgressBar(int time){
+		stage=new Stage();
+		Platform.setImplicitExit(false);
+	    BorderPane progressPane = new BorderPane();
+	    Scene scene = new Scene(progressPane, 200, 120, Color.DIMGRAY);
+	    
+	    VBox vbox=new VBox();
+	    vbox.setSpacing(10);
+	    vbox.setAlignment(Pos.CENTER);
+	    progressBar = new ProgressBar(0);
+	    okButton=new Button("OK");
+	    okButton.setDisable(true);
+	    okButton.setOnAction(new progressEventHandler());
+	    vbox.getChildren().addAll(progressBar,okButton);
+	    progressPane.setCenter(vbox);
+	        
+	    //创造进度条的移动
+	    progressBar.setProgress(0);
+	    ProgressCommitThread progressCommitThread=new ProgressCommitThread(time);
+	    progressCommitThread.start();
+	    stage.setScene(scene);
+	    stage.show();
+	}
+	
+	class ProgressCommitThread extends Thread{
+		int time=2000;
+		
+		public ProgressCommitThread(int time){
+			this.time=time;
+		}
+		@Override
+		public void run(){
+			for (int i = 0; i < 100; i++) {
+	   		 	try {
+	   		 		progressBar.setProgress(i/100.0);
+					Thread.sleep(time/100);
+				} catch (InterruptedException e) {}
+	        }
+			okButton.setDisable(false);
+		}
 	}
 		
 	private void showProgressBar(int time) throws InterruptedException, IOException{

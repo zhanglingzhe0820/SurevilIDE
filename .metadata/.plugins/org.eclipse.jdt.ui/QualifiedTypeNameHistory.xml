@@ -3,7 +3,6 @@
 <fullyQualifiedTypeName name="javafx.scene.control.TextArea"/>
 <fullyQualifiedTypeName name="javafx.scene.control.Button"/>
 <fullyQualifiedTypeName name="java.io.InputStream"/>
-<fullyQualifiedTypeName name="java.io.InputStreamReader"/>
 <fullyQualifiedTypeName name="application.Main"/>
 <fullyQualifiedTypeName name="application.view.Controller"/>
 <fullyQualifiedTypeName name="javafx.stage.Stage"/>
@@ -46,4 +45,6 @@
 <fullyQualifiedTypeName name="javafx.scene.layout.HBox"/>
 <fullyQualifiedTypeName name="javafx.scene.layout.VBox"/>
 <fullyQualifiedTypeName name="javafx.geometry.Pos"/>
+<fullyQualifiedTypeName name="java.io.InputStreamReader"/>
+<fullyQualifiedTypeName name="javafx.scene.control.ComboBox"/>
 </qualifiedTypeNameHistroy>
