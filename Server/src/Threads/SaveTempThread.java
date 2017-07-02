@@ -23,7 +23,6 @@ public class SaveTempThread extends Thread {
 	
 	@Override
 	public void run() {
-		// TODO Auto-generated method stub
 		try {
 			String text="";
 			String username="";
@@ -33,6 +32,7 @@ public class SaveTempThread extends Thread {
 			username=in.readLine();
 			text=in.readLine()+'\n';
 			
+			//创建临时文件存档
 			file=new File("L:\\javaHomework\\Temp\\"+username+"\\"+(new Date()).getTime()+".txt");//存档地址
 			file.createNewFile();
 			outFile=new PrintWriter(file);
@@ -44,7 +44,6 @@ public class SaveTempThread extends Thread {
 			out.close();
 
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			out.println("服务器无法创建文件");
 			out.flush();
 			out.close();

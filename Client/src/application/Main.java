@@ -26,21 +26,25 @@ public class Main extends Application {
 	}
 	
 	public void initRootLayout(){
+		//显示main界面
 		FXMLLoader loader=new FXMLLoader();
 		loader.setLocation(Main.class.getResource("view/RootScene.fxml"));
 		try {
  			rootLayout=(BorderPane) loader.load();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		Scene scene = new Scene(rootLayout,600,400);
+		Scene scene = new Scene(rootLayout,800,600);
 		primaryStage.setScene(scene);
 		primaryStage.show();
 		((Controller) loader.getController()).loadStatus();
+		
+		//为语言选择栏添加语言种类
 		((Controller) loader.getController()).getLanguageBox().getItems().add("BrainFuck");
 		((Controller) loader.getController()).getLanguageBox().getItems().add("Ook");
+		
+		//当关闭IDE时自动清除服务器端的临时文件
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>(){
 			@Override
 			public void handle(WindowEvent event){
@@ -57,7 +61,6 @@ public class Main extends Application {
 	}
 
 	public Stage getStage() {
-		// TODO Auto-generated method stub
 		return primaryStage;
 	}
 }

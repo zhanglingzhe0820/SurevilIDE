@@ -19,7 +19,6 @@ public class ClearAfterTempThread extends Thread {
 	
 	@Override
 	public synchronized void run() {
-		// TODO Auto-generated method stub
 		try {
 			String username="";
 			String versionsName="";
@@ -32,6 +31,8 @@ public class ClearAfterTempThread extends Thread {
 			file=new File("L:\\javaHomework\\Temp\\"+username);//存档地址
 			int fileLength=file.list().length;
 			String[] fileList=file.list();
+			
+			//在输入一个字符后删除所有之后的存档
 			for(int i=0;i<fileLength;i++){
 				if(fileList[i].equals(versionsName)){
 					for(int j=i;j<fileLength;j++){
@@ -48,7 +49,6 @@ public class ClearAfterTempThread extends Thread {
 			out.close();
 
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

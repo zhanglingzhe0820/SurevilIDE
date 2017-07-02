@@ -1,15 +1,11 @@
 package Threads;
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
-import Exceptions.WrongFileFormException;
 
 public class SaveClientThread extends Thread{
 	
@@ -28,7 +24,6 @@ public class SaveClientThread extends Thread{
 	
 	@Override
 	public synchronized void run() {
-		// TODO Auto-generated method stub
 		try {
 			String language="";
 			String text="";
@@ -48,13 +43,13 @@ public class SaveClientThread extends Thread{
 			
 			else{
 				if(language.equals("BrainFuck")){
-					file=new File("L:\\javaHomework\\UserSpace\\"+username+"\\"+getNowTime()+".bf");//创建存档地址
+					file=new File("L:\\javaHomework\\UserSpace\\"+username+"\\"+getNowTime()+".bf");//创建bf存档地址
 				}
 				else if(language.equals("Ook")){
-					file=new File("L:\\javaHomework\\UserSpace\\"+username+"\\"+getNowTime()+".ook");//创建存档地址
+					file=new File("L:\\javaHomework\\UserSpace\\"+username+"\\"+getNowTime()+".ook");//创建ook存档地址
 				}
 				else{
-					file=new File("L:\\javaHomework\\UserSpace\\"+username+"\\"+getNowTime()+".txt");//创建存档地址
+					file=new File("L:\\javaHomework\\UserSpace\\"+username+"\\"+getNowTime()+".txt");//创建txt存档地址
 				}
 				file.createNewFile();
 				outFile=new PrintWriter(file);
@@ -67,7 +62,6 @@ public class SaveClientThread extends Thread{
 			}
 
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			out.println("服务器无法创建文件");
 			out.flush();
 			out.close();
@@ -77,6 +71,6 @@ public class SaveClientThread extends Thread{
 	
 	public static String getNowTime(){
 		SimpleDateFormat df = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss");//设置日期格式
-		return (df.format(new Date()));// new Date()为获取当前系统时间
+		return (df.format(new Date()));//获取当前系统时间
 	}
 }

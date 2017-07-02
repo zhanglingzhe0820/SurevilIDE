@@ -59,12 +59,11 @@ public class Client implements FunctionClient{
 			in.close();
 			clientSocket.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			messageInput="cannot read the incoming message";
 			e.printStackTrace();
 		}
 		
-		return messageInput;//TRY
+		return messageInput;
 	}
 	
 	public String login(String username,String password){
@@ -78,11 +77,10 @@ public class Client implements FunctionClient{
 		try {
 				result=in.readLine();	
 			} catch (IOException e) {
-					// TODO Auto-generated catch block
 				result="cannot read the incoming message";
 				e.printStackTrace();
 			}
-			return result;//TRY
+			return result;
 	}
 
 	public String signUp(String username, String password) {
@@ -96,12 +94,11 @@ public class Client implements FunctionClient{
 		try {
 				result=in.readLine();	
 			} catch (IOException e) {
-					// TODO Auto-generated catch block
 				result="cannot read the incoming message";
 				e.printStackTrace();
 			}
 				
-			return result;//TRY
+			return result;
 	}
 	
 	public String save(String language,String username,String code){
@@ -116,12 +113,11 @@ public class Client implements FunctionClient{
 		try {
 			result=in.readLine();	
 		} catch (IOException e) {
-				// TODO Auto-generated catch block
 			result="cannot read the incoming message";
 			e.printStackTrace();
 		}
 			
-		return result;//TRY
+		return result;
 	}
 	
 	public ArrayList<String> getVersions(String username){
@@ -141,12 +137,11 @@ public class Client implements FunctionClient{
 				result.add(s);
 			}
 		} catch (IOException e) {
-				// TODO Auto-generated catch block
 			result.add("cannot read the incoming message");
 			e.printStackTrace();
 		}
 			
-		return result;//TRY
+		return result;
 	}
 
 	@Override
@@ -161,12 +156,11 @@ public class Client implements FunctionClient{
 		try {
 			result=in.readLine();	
 		} catch (IOException e) {
-				// TODO Auto-generated catch block
 			result="cannot read the incoming message";
 			e.printStackTrace();
 		}
 			
-		return result;//TRY
+		return result;
 	
 	}
 
@@ -178,7 +172,6 @@ public class Client implements FunctionClient{
 		out.flush();
 		
 		String result="";
-		//收到结果
 		try {
 			result=in.readLine();	
 		} catch (IOException e) {
@@ -187,7 +180,7 @@ public class Client implements FunctionClient{
 			e.printStackTrace();
 		}
 			
-		return result;//TRY
+		return result;
 	}
 
 	@Override

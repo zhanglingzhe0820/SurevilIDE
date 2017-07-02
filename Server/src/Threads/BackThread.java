@@ -78,7 +78,6 @@ public class BackThread extends Thread {
 			
 
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			out.println("服务器无法创建文件");
 			out.flush();
 			out.close();

@@ -19,7 +19,6 @@ public class ClearTempThread extends Thread {
 	
 	@Override
 	public synchronized void run() {
-		// TODO Auto-generated method stub
 		try {
 			String username="";
 			System.out.println("客户端已连接");
@@ -27,6 +26,8 @@ public class ClearTempThread extends Thread {
 			username=in.readLine();
 			
 			file=new File("L:\\javaHomework\\Temp\\"+username);//存档地址
+			
+			//清空temp文件夹
 			if(!(file.list()==null||file.list().length==0)){
 				for(String s:file.list()){
 					new File(file,s).delete();

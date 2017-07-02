@@ -5,14 +5,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import application.Main;
 import application.model.Client;
 import javafx.application.Platform;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -26,10 +23,10 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -72,6 +69,27 @@ public class Controller{
 	private ArrayList<MenuItem> versionItems;
 	private String versionsName="";
 	private int index=0;
+	
+	private KeyCode ctrlClick;
+	//快捷键
+	@FXML
+	private void shortcutKey(KeyEvent event){
+		if(event.getCode().equals(KeyCode.F5)){
+			excute(new ActionEvent());
+		}
+		else if(event.getCode().equals(KeyCode.ENTER)){
+			onCloneClicked(new ActionEvent());
+		}
+		else if(event.getCode().equals(KeyCode.CONTROL)){
+			ctrlClick=KeyCode.CONTROL;
+		}
+		else if(event.getCode().equals(KeyCode.S)&&ctrlClick==KeyCode.CONTROL){
+			save();
+		}
+		else if(event.getCode().equals(KeyCode.N)&&ctrlClick==KeyCode.CONTROL){
+			newText(new ActionEvent());
+		}
+	}
 	
 	//鼠标进入各种图标使其变亮
 	@FXML
@@ -155,7 +173,6 @@ public class Controller{
 			loginController.init(this);
 
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -215,13 +232,10 @@ public class Controller{
 			finalPath=path;
 			new FileThread(finalPath,this).start();
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -250,10 +264,8 @@ public class Controller{
 			pw.flush(); 
 			pw.close();
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -284,10 +296,8 @@ public class Controller{
 			pw.flush(); 
 			pw.close();
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -553,7 +563,8 @@ public class Controller{
 			okButton.setDisable(false);
 		}
 	}
-		
+	
+	//创建进度条
 	private void showProgressBar(int time) throws InterruptedException, IOException{
 		stage=new Stage();
 		Platform.setImplicitExit(false);

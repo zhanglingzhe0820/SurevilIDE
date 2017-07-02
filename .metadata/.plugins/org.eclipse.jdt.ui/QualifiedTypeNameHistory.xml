@@ -47,4 +47,8 @@
 <fullyQualifiedTypeName name="javafx.geometry.Pos"/>
 <fullyQualifiedTypeName name="java.io.InputStreamReader"/>
 <fullyQualifiedTypeName name="javafx.scene.control.ComboBox"/>
+<fullyQualifiedTypeName name="Runner.Runner"/>
+<fullyQualifiedTypeName name="Threads.Runner.Runner"/>
+<fullyQualifiedTypeName name="java.security.MessageDigest"/>
+<fullyQualifiedTypeName name="javafx.scene.input.KeyCode"/>
 </qualifiedTypeNameHistroy>

@@ -1,15 +1,11 @@
 package Threads;
 
-
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.net.ServerSocket;
 import java.net.Socket;
-
 import Exceptions.WrongFileFormException;
-import Runner.Runner;
+import Threads.Runner.Runner;
 
 public class ExecuteClientThread extends Thread{
 	private int numberOfThread;
@@ -27,7 +23,6 @@ public class ExecuteClientThread extends Thread{
 
 	@Override
 	public void run() {
-		// TODO Auto-generated method stub
 		try {
 			String text="";
 			String messageInput="";
@@ -37,6 +32,7 @@ public class ExecuteClientThread extends Thread{
 			text=in.readLine();
 			messageInput=in.readLine()+'\n';
 			try {
+				//判定是否为空文件
 				if(!(text==null||text.length()==0)){
 					codeRunner=new Runner(text,messageInput);
 					out.println(codeRunner.executeCode());
@@ -49,7 +45,6 @@ public class ExecuteClientThread extends Thread{
 					out.close();
 				}
 			} catch (WrongFileFormException e) {
-				// TODO Auto-generated catch block
 				out.println("Wrong code language type");
 				out.flush();
 				out.close();
@@ -57,7 +52,6 @@ public class ExecuteClientThread extends Thread{
 			}
 
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			System.out.println("Can't get incoming socket!");
 			e.printStackTrace();
 		}

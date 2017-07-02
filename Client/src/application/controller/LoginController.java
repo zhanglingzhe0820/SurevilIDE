@@ -1,16 +1,12 @@
 package application.controller;
 
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
-
 import application.Main;
 import application.model.Client;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
@@ -42,7 +38,7 @@ public class LoginController{
 	private void onLogin(ActionEvent event){
 		controller.setClient();
 		this.request=controller.request;
-		String temp=request.login(username.getText(), passwordText.getText());//得到返回的信息
+		String temp=request.login(username.getText(), DigestMD5.getMD5Result(passwordText.getText()));//得到返回的信息
 		
 		//显示弹出框
 		if(temp.equals("wrong")){
@@ -55,7 +51,6 @@ public class LoginController{
 				newStage.setScene(scene);
 				newStage.show();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -74,7 +69,6 @@ public class LoginController{
 				recordThread.start();
 				controller.getCode().setOnKeyPressed(new codeEventHandler());
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 		
@@ -91,7 +85,7 @@ public class LoginController{
 	private void onSignUp(ActionEvent event){
 		controller.setClient();
 		this.request=controller.request;
-		String temp=request.signUp(username.getText(), passwordText.getText());//得到返回的信息
+		String temp=request.signUp(username.getText(), DigestMD5.getMD5Result(passwordText.getText()));//得到返回的信息
 		
 		//显示弹出框
 		if(temp.equals("wrong")){
@@ -104,7 +98,6 @@ public class LoginController{
 				newStage.setScene(scene);
 				newStage.show();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -119,7 +112,6 @@ public class LoginController{
 				newStage.setScene(scene);
 				newStage.show();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -133,7 +125,6 @@ public class LoginController{
 
 	//实现Controller和loginContoller之间的通信
 	public void init(Controller controller) {
-		// TODO Auto-generated method stub
 		this.controller=controller;
 	}
 	

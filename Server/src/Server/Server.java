@@ -22,7 +22,6 @@ public class Server {
 	private int count=0;
 	
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		Server server=new Server();
 		server.run();
 	}
@@ -45,7 +44,6 @@ public class Server {
 				BufferedReader in=new BufferedReader(new InputStreamReader(incoming.getInputStream()));
 				chooseFunction(incoming,in.readLine(),in);
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -54,35 +52,14 @@ public class Server {
 	//根据传输的第一条字符串判断请求的功能
 	public void chooseFunction(Socket incoming,String info,BufferedReader in){
 		switch(info){
-			case "New":{
-				break;
-			}
 			case "Save":{
 				count++;
 				(new SaveClientThread(count,incoming,in)).start();
 				break;
 			}
-			case "Open":{
-				break;
-			}
-			case "Exit":{
-				break;
-			}
 			case "Execute":{
 				count++;
 				(new ExecuteClientThread(count,incoming,in)).start();
-				break;
-			}
-			case "Version":{
-				break;
-			}
-			case "Commit":{
-				break;
-			}
-			case "Push":{
-				break;
-			}
-			case "CommitAndPush":{
 				break;
 			}
 			case "Login":{

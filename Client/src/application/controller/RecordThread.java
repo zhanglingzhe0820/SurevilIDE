@@ -1,11 +1,8 @@
 package application.controller;
 
 import java.util.Date;
-
 import application.model.Client;
 import javafx.event.EventHandler;
-import javafx.event.EventType;
-import javafx.scene.input.InputEvent;
 import javafx.scene.input.KeyEvent;
 
 public class RecordThread extends Thread{
@@ -52,8 +49,7 @@ public class RecordThread extends Thread{
 				time2=(new Date()).getTime();
 				if(time2-time1>=500){
 					request=new Client();
-					controller.setOutputText(request.setUpSocket());//·µ»ØÁ¬½Ó×´Ì¬
-					
+					request.setUpSocket();
 					request.saveTemp(controller.getLoginStatus(),controller.getCodeText());
 				}
 				time1=time2;

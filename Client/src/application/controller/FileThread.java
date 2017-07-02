@@ -6,8 +6,6 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
-import javafx.application.Platform;
-
 public class FileThread extends Thread {
 	String path="";
 	Controller controller;
@@ -37,10 +35,8 @@ public class FileThread extends Thread {
 			controller.getCode().setText(new String(result));
 			controller.getGit().clear();
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
