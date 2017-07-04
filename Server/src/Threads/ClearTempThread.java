@@ -25,7 +25,7 @@ public class ClearTempThread extends Thread {
 
 			username=in.readLine();
 			
-			file=new File("L:\\javaHomework\\Temp\\"+username);//存档地址
+			file=new File(PathHelper.getRootPath()+"Temp\\"+username);//存档地址
 			
 			//清空temp文件夹
 			if(!(file.list()==null||file.list().length==0)){

@@ -32,7 +32,7 @@ public class GetFileClientThread extends Thread{
 			username=in.readLine();
 			fileName=in.readLine();
 			
-			file=new File("L:\\javaHomework\\UserSpace\\"+username+"\\"+fileName);//¥Êµµµÿ÷∑
+			file=new File(PathHelper.getRootPath()+"UserSpace\\"+username+"\\"+fileName);//¥Êµµµÿ÷∑
 			inFile=new BufferedReader(new FileReader(file));
 			out.println(inFile.readLine());
 			out.flush();

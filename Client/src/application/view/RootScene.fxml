@@ -64,7 +64,7 @@
                      <effect>
                         <ImageInput>
                            <source>
-                              <Image url="file:/L:/javaHomework/Client/resources/images/login.png" />
+                              <Image url="file:" />
                            </source>
                         </ImageInput>
                      </effect>
@@ -129,7 +129,7 @@
                      <effect>
                         <ImageInput>
                            <source>
-                              <Image url="file:/L:/javaHomework/Client/resources/images/back.png" />
+                              <Image url="file:" />
                            </source>
                         </ImageInput>
                      </effect>
@@ -138,7 +138,7 @@
                      <effect>
                         <ImageInput>
                            <source>
-                              <Image url="file:/L:/javaHomework/Client/resources/images/move.png" />
+                              <Image url="file:" />
                            </source>
                         </ImageInput>
                      </effect>

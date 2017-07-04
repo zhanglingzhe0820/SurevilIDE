@@ -32,7 +32,7 @@ public class MoveThread extends Thread {
 			username=in.readLine();
 			versionsName=in.readLine();
 			
-			file=new File("L:\\javaHomework\\Temp\\"+username);//¥Êµµµÿ÷∑
+			file=new File(PathHelper.getRootPath()+"Temp\\"+username);//¥Êµµµÿ÷∑
 			
 			if(file.list()==null||file.list().length==0){
 				out.println("not_move");
@@ -61,7 +61,7 @@ public class MoveThread extends Thread {
 							}
 							else{
 								versionsName=file.list()[i+1];
-								file=new File("L:\\javaHomework\\Temp\\"+username+"\\"+versionsName);
+								file=new File(PathHelper.getRootPath()+"Temp\\"+username+"\\"+versionsName);
 								inFile=new BufferedReader(new FileReader(file));
 								text=inFile.readLine();
 								inFile.close();

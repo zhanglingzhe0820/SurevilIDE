@@ -51,4 +51,10 @@
 <fullyQualifiedTypeName name="Threads.Runner.Runner"/>
 <fullyQualifiedTypeName name="java.security.MessageDigest"/>
 <fullyQualifiedTypeName name="javafx.scene.input.KeyCode"/>
+<fullyQualifiedTypeName name="javax.swing.text.html.ImageView"/>
+<fullyQualifiedTypeName name="javafx.scene.effect.Effect"/>
+<fullyQualifiedTypeName name="javafx.scene.image.ImageView"/>
+<fullyQualifiedTypeName name="javafx.scene.effect.ImageInput"/>
+<fullyQualifiedTypeName name="javafx.scene.image.Image"/>
+<fullyQualifiedTypeName name="application.controller.PathHelper"/>
 </qualifiedTypeNameHistroy>

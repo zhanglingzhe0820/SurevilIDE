@@ -26,7 +26,7 @@ public class GetVersionsClientThread extends Thread {
 
 			out=new PrintWriter(incoming.getOutputStream());
 			username=in.readLine();
-			File file=new File("L:\\javaHomework\\UserSpace\\"+username);//存档文件夹
+			File file=new File(PathHelper.getRootPath()+"UserSpace\\"+username);//存档文件夹
 			
 			//没有存档返回None
 			if(file.list()==null||file.list().length==0){

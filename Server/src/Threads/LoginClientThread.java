@@ -57,8 +57,8 @@ public class LoginClientThread extends Thread{
 			String sql="SELECT * FROM USER WHERE USERNAME=="+"\'"+username+"\'"+" AND PASSWORD=="+"\'"+password+"\'"+";";
 			ResultSet result=state.executeQuery(sql);
 			if(result!=null&&result.getString("USERNAME").length()!=0){
-				if(!new File("L:\\javaHomework\\Temp\\"+username).exists()){
-					new File("L:\\javaHomework\\Temp\\"+username).mkdir();
+				if(!new File(PathHelper.getRootPath()+"Temp\\"+username).exists()){
+					new File(PathHelper.getRootPath()+"Temp\\"+username).mkdir();
 				}
 				out.println("success");
 			}

@@ -217,7 +217,7 @@ public class Controller{
 			gitPath.append("https://github.com/");
 			gitPath.append(gitText.getText().split("/")[3]+"/");
 			gitPath.append(gitText.getText().split("/")[4]);
-			Process process=Runtime.getRuntime().exec("cmd /c L:/Git/git-cmd.exe git clone "+gitPath);
+			Process process=Runtime.getRuntime().exec("cmd /c git clone "+gitPath);
 			showProgressBar(5000);//显示进度表
 			String[] s=this.getClass().getResource("").getPath().split("/");
 			String path="";
@@ -225,11 +225,12 @@ public class Controller{
 			for(int i=1;i<s.length-3;i++){
 				path=path+s[i]+"/";
 			}
-			filePath=path+gitText.getText().split("/")[4].split("\\.")[0];
-			path=path+gitText.getText().split("/")[4].split("\\.")[0]+"/"+gitText.getText().split("/")[5];
+			filePath=PathHelper.getRootPath()+"/Client/"+gitText.getText().split("/")[4].split("\\.")[0];
+			path=filePath+"/"+gitText.getText().split("/")[5];
 			
 			//运行读文件线程
 			finalPath=path;
+			System.out.println(filePath);
 			new FileThread(finalPath,this).start();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -257,7 +258,7 @@ public class Controller{
 			
 			Process process=Runtime.getRuntime().exec("cmd");
 			pw=new PrintWriter(process.getOutputStream(),true);
-			pw.println("l:");
+			pw.println(PathHelper.getRootPath().substring(0, 2));
 			pw.println("cd "+filePath);
 			pw.println("git add * -f");
 			pw.println("git commit -m "+gitText.getText());
@@ -288,7 +289,7 @@ public class Controller{
 			
 			Process process=Runtime.getRuntime().exec("cmd");
 			pw=new PrintWriter(process.getOutputStream(),true);
-			pw.println("l:");
+			pw.println(PathHelper.getRootPath().substring(0, 2));
 			pw.println("cd "+filePath);
 			pw.println("git add * -f");
 			pw.println("git commit -m "+gitText.getText());
@@ -334,6 +335,18 @@ public class Controller{
 		return codeText;
 	}
 	
+	public Button getLogButton(){
+		return loginButton;
+	}
+	
+	public Button getBackButton(){
+		return backButton;
+	}
+	
+	public Button getMoveButton(){
+		return moveButton;
+	}
+	
 	public void setVersionsName(String name){
 		versionsName=name;
 	}
@@ -373,28 +386,28 @@ public class Controller{
 		try {
 			//加载代码信息
 			String line="";
-			BufferedReader codeStatusReader=new BufferedReader(new FileReader(new File("L:\\javaHomework\\Client\\Status\\CodeStatus.txt")));
+			BufferedReader codeStatusReader=new BufferedReader(new FileReader(new File(PathHelper.getRootPath()+"Client\\Status\\CodeStatus.txt")));
 			if((line=codeStatusReader.readLine())!=null){
 				codeText.setText(line);
 			}
 			codeStatusReader.close();
 			
 			//加载登录信息
-			BufferedReader loginStatusReader=new BufferedReader(new FileReader(new File("L:\\javaHomework\\Client\\Status\\LoginStatus.txt")));
+			BufferedReader loginStatusReader=new BufferedReader(new FileReader(new File(PathHelper.getRootPath()+"Client\\Status\\LoginStatus.txt")));
 			if((line=loginStatusReader.readLine())!=null){
 				loginStatus.setText(line);
 			}
 			loginStatusReader.close();
 			
 			//加载git信息filePath
-			BufferedReader filePathStatusReader=new BufferedReader(new FileReader(new File("L:\\javaHomework\\Client\\Status\\FilePathStatus.txt")));
+			BufferedReader filePathStatusReader=new BufferedReader(new FileReader(new File(PathHelper.getRootPath()+"Client\\Status\\FilePathStatus.txt")));
 			if((line=filePathStatusReader.readLine())!=null){
 				filePath=line;
 			}
 			filePathStatusReader.close();
 			
 			//加载git信息finalPath
-			BufferedReader finalPathStatusReader=new BufferedReader(new FileReader(new File("L:\\javaHomework\\Client\\Status\\FinalPathStatus.txt")));
+			BufferedReader finalPathStatusReader=new BufferedReader(new FileReader(new File(PathHelper.getRootPath()+"Client\\Status\\FinalPathStatus.txt")));
 			if((line=finalPathStatusReader.readLine())!=null){
 				finalPath=line;
 			}
@@ -422,25 +435,25 @@ public class Controller{
 	public void saveStatus(){
 		try {
 			//保存代码信息
-			PrintWriter codeStatusWriter=new PrintWriter(new File("L:\\javaHomework\\Client\\Status\\CodeStatus.txt"));
+			PrintWriter codeStatusWriter=new PrintWriter(new File(PathHelper.getRootPath()+"Client\\Status\\CodeStatus.txt"));
 			codeStatusWriter.print(codeText.getText());
 			codeStatusWriter.flush();
 			codeStatusWriter.close();
 			
 			//保存登录信息
-			PrintWriter loginStatusWriter=new PrintWriter(new File("L:\\javaHomework\\Client\\Status\\LoginStatus.txt"));
+			PrintWriter loginStatusWriter=new PrintWriter(new File(PathHelper.getRootPath()+"Client\\Status\\LoginStatus.txt"));
 			loginStatusWriter.print(loginStatus.getText());
 			loginStatusWriter.flush();
 			loginStatusWriter.close();
 			
 			//保存关于git的目标地址filePath
-			PrintWriter filePathWriter=new PrintWriter(new File("L:\\javaHomework\\Client\\Status\\FilePathStatus.txt"));
+			PrintWriter filePathWriter=new PrintWriter(new File(PathHelper.getRootPath()+"Client\\Status\\FilePathStatus.txt"));
 			filePathWriter.print(filePath);
 			filePathWriter.flush();
 			filePathWriter.close();
 			
 			//保存关于git的目标文件夹finalPath
-			PrintWriter finalPathWriter=new PrintWriter(new File("L:\\javaHomework\\Client\\Status\\FinalPathStatus.txt"));
+			PrintWriter finalPathWriter=new PrintWriter(new File(PathHelper.getRootPath()+"Client\\Status\\FinalPathStatus.txt"));
 			finalPathWriter.print(finalPath);
 			finalPathWriter.flush();
 			finalPathWriter.close();	

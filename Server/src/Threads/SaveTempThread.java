@@ -33,7 +33,7 @@ public class SaveTempThread extends Thread {
 			text=in.readLine()+'\n';
 			
 			//创建临时文件存档
-			file=new File("L:\\javaHomework\\Temp\\"+username+"\\"+(new Date()).getTime()+".txt");//存档地址
+			file=new File(PathHelper.getRootPath()+"Temp\\"+username+"\\"+(new Date()).getTime()+".txt");//存档地址
 			file.createNewFile();
 			outFile=new PrintWriter(file);
 			outFile.println(text);

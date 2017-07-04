@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy element &apos;PathHelper.java&apos; to &apos;Client/src/application.controller&apos;&#x0D;&#x0A;- Original project: &apos;Server&apos;&#x0D;&#x0A;- Destination element: &apos;Client/src/application.controller&apos;&#x0D;&#x0A;- Original element: &apos;Threads.PathHelper.java&apos;" description="Copy compilation unit" destination="=Client/src&lt;application.controller" element1="/src&lt;Threads{PathHelper.java" files="0" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1498989122413" units="1" version="1.0"/>
+</session>

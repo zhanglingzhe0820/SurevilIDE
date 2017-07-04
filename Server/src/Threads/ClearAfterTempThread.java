@@ -28,7 +28,7 @@ public class ClearAfterTempThread extends Thread {
 			username=in.readLine();
 			versionsName=in.readLine();
 			
-			file=new File("L:\\javaHomework\\Temp\\"+username);//¥Êµµµÿ÷∑
+			file=new File(PathHelper.getRootPath()+"Temp\\"+username);//¥Êµµµÿ÷∑
 			int fileLength=file.list().length;
 			String[] fileList=file.list();
 			

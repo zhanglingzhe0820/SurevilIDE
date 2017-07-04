@@ -43,13 +43,13 @@ public class SaveClientThread extends Thread{
 			
 			else{
 				if(language.equals("BrainFuck")){
-					file=new File("L:\\javaHomework\\UserSpace\\"+username+"\\"+getNowTime()+".bf");//创建bf存档地址
+					file=new File(PathHelper.getRootPath()+"UserSpace\\"+username+"\\"+getNowTime()+".bf");//创建bf存档地址
 				}
 				else if(language.equals("Ook")){
-					file=new File("L:\\javaHomework\\UserSpace\\"+username+"\\"+getNowTime()+".ook");//创建ook存档地址
+					file=new File(PathHelper.getRootPath()+"UserSpace\\"+username+"\\"+getNowTime()+".ook");//创建ook存档地址
 				}
 				else{
-					file=new File("L:\\javaHomework\\UserSpace\\"+username+"\\"+getNowTime()+".txt");//创建txt存档地址
+					file=new File(PathHelper.getRootPath()+"UserSpace\\"+username+"\\"+getNowTime()+".txt");//创建txt存档地址
 				}
 				file.createNewFile();
 				outFile=new PrintWriter(file);
